@@ -189,7 +189,7 @@ function gauge(opp){
 }
 const SEGN={Value:"Value",Mid:"Mid",Small:"Small",Cartera:"Cart."};
 const ROWS=RAW.map(r=>{const d={tk:r[0],co:r[1],seg:r[2],cart:r[3],ltmHist:r[4],ltm:r[5],ntm:r[6]};Object.assign(d,evaluate(d));return d;});
-const GLAB={sup:['Súper oport.','l-sup'],op:['Oportunidad','l-op'],pre:['En precio','l-pre'],ca:['Cara','l-ca'],na:['Hist. corta','l-pre']};
+const GLAB={sup:['Oportunidad','l-sup'],op:['Oportunidad','l-op'],pre:['En precio','l-pre'],ca:['Cara','l-ca'],na:['Hist. corta','l-pre']};
 function rowHTML(d,i){
   const yr=d.ltmHist.map(v=>'<td>'+cell(v)+'</td>').join('');
   const g=GLAB[d.v];
@@ -208,7 +208,7 @@ function rowHTML(d,i){
     '<td class="hoy">'+cell(d.ltm)+fl+'</td>'+
     '<td class="ntm">'+cell(d.ntm)+'</td>'+
     '<td class="rng">'+rng+'</td>'+
-    '<td class="gaugecell"><div class="gwrap">'+gsvg+'<span class="gpct '+g[1]+'">'+gpct+'</span><span class="glab '+g[1]+'">'+g[0]+'</span></div></td>'+
+    '<td class="gaugecell"><div class="gwrap">'+gsvg+'<span class="glab '+g[1]+'">'+g[0]+'</span></div></td>'+
   '</tr>';
 }
 let cur={k:'opp',dir:-1}, filt='all';
