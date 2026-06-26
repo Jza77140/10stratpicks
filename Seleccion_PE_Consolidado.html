@@ -61,7 +61,7 @@ tbody tr:hover{background:var(--hover)}
 </style></head>
 <body><script>try{if((localStorage.getItem("sp_theme")||"dark")==="light")document.body.classList.add("light")}catch(e){}</script><div class="wrap"><div class="topbrand"><a href="index.html">← Volver</a><span class="bd"><span class="t">10</span>StratPicks</span></div>
 <h1>Análisis P/E — Selecciones (Value · MidCap · SmallCap)</h1>
-<p class="sub">Historial año a año del múltiplo <b>P/E LTM</b> (precio ÷ beneficio <b>real</b> últimos 12 meses) descargado de <b>TIKR</b>, al <b>cierre de cada 31-dic</b> (para ver la burbuja 2021–2022). <b>LTM hoy</b> = múltiplo actual; <b>NTM hoy</b> = forward (estimado), solo de referencia. El <b>gauge</b> compara el LTM de hoy contra su propio <b>rango LTM de 7 años</b> (piso ↔ techo): aguja a la derecha (verde) = pegado a su <b>mínimo histórico</b> = súper oportunidad. Todo LTM real vs LTM real. <b>50 activos</b> de las selecciones Value, MidCap y SmallCap (los TrendStars quedan fuera: pre-beneficio, el P/E no aplica).</p>
+<p class="sub">Historial año a año del múltiplo <b>P/E LTM</b> (precio ÷ beneficio <b>real</b> últimos 12 meses) descargado de <b>TIKR</b>, al <b>cierre de cada 31-dic</b> (para ver la burbuja 2021–2022). <b>LTM hoy</b> = múltiplo actual; <b>NTM hoy</b> = forward (estimado), solo de referencia. El <b>gauge</b> compara el LTM de hoy contra su propio <b>rango LTM de 7 años</b> (piso ↔ techo): aguja a la derecha (verde) = pegado a su <b>mínimo histórico</b> = súper oportunidad. Todo LTM real vs LTM real. <b>30 activos</b> de las selecciones Value, MidCap y SmallCap (los TrendStars quedan fuera: pre-beneficio, el P/E no aplica).</p>
 <div class="bar">
 <div class="glegend"><span class="lbl">Gauge:</span>
 <svg width="46" height="30" viewBox="0 0 46 30"><path d="M5 25 A18 18 0 0 1 14 9.41" stroke="#d9534f" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M14 9.41 A18 18 0 0 1 32 9.41" stroke="#e0a000" stroke-width="4" fill="none"/><path d="M32 9.41 A18 18 0 0 1 41 25" stroke="#0a7a55" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
@@ -69,8 +69,7 @@ tbody tr:hover{background:var(--hover)}
 <span class="legend">Fuente: TIKR · al 25-jun-2026 · <b>●</b> = en cartera · ordenado por oportunidad</span>
 </div>
 <div class="filters" id="filters">
-<button class="fbtn on" data-f="all">Todos (50)</button>
-<button class="fbtn" data-f="Cartera">● Cartera</button>
+<button class="fbtn on" data-f="all">Todos (30)</button>
 <button class="fbtn" data-f="Value">Value</button>
 <button class="fbtn" data-f="Mid">MidCap</button>
 <button class="fbtn" data-f="Small">SmallCap</button>
@@ -152,6 +151,7 @@ const RAW=[
 ["NAGE","ChromaDex","Small",0,[-7.65,-12.81,-8.79,-5.61,-16.02,269.62,27.08],16.43,20.29],
 ["ESEA","Euroseas","Small",0,[-2.41,14.77,8.40,1.23,1.97,2.22,3.14],3.58,4.23]
 ];
+const ALLOWED=new Set(["FICO", "MSFT", "MA", "NVDA", "APP", "V", "META", "AVGO", "MEDP", "GOOGL", "MANH", "HALO", "DOCS", "WING", "USLM", "HLI", "PAYC", "EXLS", "CSW", "PLNT", "EVTC", "XPEL", "IRMD", "ELTP", "ELMD", "AMPH", "NATH", "RDVT", "NUTX", "ESEA"]);(function(){const _k=RAW.filter(r=>ALLOWED.has(r[0]));RAW.length=0;_k.forEach(x=>RAW.push(x));})();
 const ok=v=>v!=null&&v>0&&v<=300;
 function evaluate(d){
   const ref=d.ltm;
