@@ -163,7 +163,7 @@ body.light .medal{background:rgba(0,0,0,.10);color:#0c1512}
 .pod.blur2 .pod-tk,.pod.blur2 .pod-nm,.pod.blur2 .pod-mult{filter:blur(2.3px);opacity:.92;user-select:none}
 .mp-base{height:5px;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.18),rgba(255,255,255,.04));border-radius:0 0 5px 5px;margin-bottom:13px}
 body.light .mp-base{background:linear-gradient(90deg,rgba(0,0,0,.03),rgba(0,0,0,.14),rgba(0,0,0,.03))}
-.mp-btn{display:flex;text-decoration:none;align-items:center;justify-content:center;gap:6px;background:#0a6e4a;color:#ffffff;font-weight:900;font-size:15px;letter-spacing:.2px;padding:12px;border-radius:12px;box-shadow:none;transition:.15s}
+.mp-btn{display:flex;text-decoration:none;align-items:center;justify-content:center;gap:6px;background:#ffffff;color:#06231a;font-weight:900;font-size:15px;letter-spacing:.2px;padding:12px;border-radius:12px;box-shadow:none;transition:.15s}
 .mp-btn:hover{transform:translateY(-1px)}
 @media(max-width:900px){.hero-row{flex-direction:column;align-items:stretch}.hero-podium{width:100%;max-width:380px;margin:10px auto 0;transform:none}}
 .iconbtn{border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;font-size:14px;width:34px;height:34px;border-radius:50%;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;line-height:1}body.light .iconbtn{background:rgba(0,0,0,.05)}.iconbtn:hover{background:rgba(255,255,255,.14)}.modal{display:none;position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.62);backdrop-filter:blur(4px);justify-content:center;align-items:flex-start;padding:56px 20px;overflow:auto}.modal.open{display:flex}.modal-card{position:relative;background:var(--ink2);border:1px solid var(--line);border-radius:20px;padding:28px 26px 26px;max-width:740px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.55)}body.light .modal-card{background:#fff}.modal-x{position:absolute;top:13px;right:15px;border:0;background:rgba(255,255,255,.10);color:inherit;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:13px}body.light .modal-x{background:rgba(0,0,0,.06)}body.light .gauge line{stroke:#0c1512}body.light .gauge polygon{fill:#0c1512}body.light .gauge circle{fill:#0c1512}</style></head>
@@ -185,7 +185,7 @@ body.light .mp-base{background:linear-gradient(90deg,rgba(0,0,0,.03),rgba(0,0,0,
     <p class="sub" data-k="sub">Te ayudamos a invertir entre los mejores <span class="ten">10</span>.</p>
    </div>
    <div class="hero-podium">
-    <div class="mp-card" onclick="if(!event.target.closest('a'))window.open('Seleccion_PE_Consolidado.html','_blank')">
+    <a class="mp-card" href="../../Seleccion_PE_Consolidado.html" target="_blank" style="text-decoration:none;color:inherit;display:block">
       <div class="mp-head"><span class="mp-spark">🏆</span><span data-k="mp_h">Top Oportunidades</span><span class="mp-tag">P/E</span></div>
       <div class="podium">
         <div class="pod"><div class="pod-tk">EXLS</div><div class="pod-nm">ExlService · BPO</div><div class="pod-mult">16,8x · <b style="color:#13d39a">11,6x</b></div><div class="step step2"><span class="medal">2</span></div></div>
@@ -193,8 +193,8 @@ body.light .mp-base{background:linear-gradient(90deg,rgba(0,0,0,.03),rgba(0,0,0,
         <div class="pod"><div class="pod-tk">NOW</div><div class="pod-nm">ServiceNow · Software</div><div class="pod-mult">55,8x · <b style="color:#13d39a">21,6x</b></div><div class="step step3"><span class="medal">3</span></div></div>
       </div>
       <div class="mp-base"></div>
-      <a class="mp-btn" href="Seleccion_PE_Consolidado.html" target="_blank" data-k="mp_btn">Ranking <b style="font-weight:900">10</b> →</a>
-    </div>
+      <span class="mp-btn" data-k="mp_btn">Ranking <b style="font-weight:900">10</b> →</span>
+    </a>
    </div>
   </div>
  </div>

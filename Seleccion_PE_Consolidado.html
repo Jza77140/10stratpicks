@@ -1,10 +1,24 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Análisis P/E — Selecciones (Value · MidCap · SmallCap)</title>
 <style>
-:root{--ink:#10211b;--mut:#6b8079;--line:#e3ebe7;--teal:#0a7a55;--bg:#f4f7f5;--card:#fff}
+:root{
+--bg:#0a1611;--ink:#eafff7;--mut:#8ea69d;--line:rgba(255,255,255,.10);--card:#11211b;--teal:#13d39a;
+--th:#16271f;--thh:#1b2f26;--tdline:rgba(255,255,255,.07);--hover:rgba(255,255,255,.045);
+--needle:#eafff7;--band:rgba(245,177,51,.16);
+--sup:#2ee0a6;--op:#13d39a;--pre:#9fb4ac;--ca:#ff6b61;--lo:#2ee0a6;--hi:#7e948c;--amber:#f5b133;
+--sv:#5cc6e6;--sm:#b29bff;--ss:#f5b133;--sc:#13d39a;--nm:#7e948c}
+body.light{
+--bg:#f4f7f5;--ink:#10211b;--mut:#6b8079;--line:#e3ebe7;--card:#fff;--teal:#0a7a55;
+--th:#f0f5f2;--thh:#e6efe9;--tdline:#eef3f0;--hover:#f7faf8;
+--needle:#10211b;--band:#fdf3dc;
+--sup:#066b46;--op:#0a7a55;--pre:#7a8c85;--ca:#b4322a;--lo:#066b46;--hi:#9aa6a2;--amber:#b8860b;
+--sv:#0a6b8a;--sm:#7a5cc0;--ss:#b8860b;--sc:#0a7a55;--nm:#b9c4bf}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;font-size:14px;line-height:1.45}
-.wrap{max-width:1340px;margin:0 auto;padding:26px 18px 60px}
+.wrap{max-width:1340px;margin:0 auto;padding:22px 18px 60px}
+.topbrand{display:flex;align-items:center;gap:10px;margin:0 0 16px;font-size:13px}
+.topbrand a{color:var(--teal);text-decoration:none;font-weight:800}
+.topbrand .bd{font-weight:800;color:var(--ink)}.topbrand .bd .t{color:var(--teal)}
 h1{font-size:25px;margin:0 0 4px;letter-spacing:-.3px}
 .sub{color:var(--mut);font-size:13.5px;margin:0 0 14px;max-width:1020px}
 .sub b{color:var(--ink)}
@@ -13,37 +27,39 @@ h1{font-size:25px;margin:0 0 4px;letter-spacing:-.3px}
 .glegend .lbl{font-weight:700}
 .legend{margin-left:auto;color:var(--mut);font-size:12px}
 .filters{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
-.fbtn{border:1px solid var(--line);background:#fff;color:#3a4f48;font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer}
-.fbtn.on{background:#0a7a55;color:#fff;border-color:#0a7a55}
-.tablecard{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(20,40,30,.05)}
+.fbtn{border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer}
+.fbtn.on{background:var(--teal);color:#06231a;border-color:var(--teal)}
+.tablecard{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.25)}
 .scroll{overflow-x:auto}
 table{border-collapse:collapse;width:100%;min-width:1200px}
-thead th{position:sticky;top:0;background:#f0f5f2;color:#3a4f48;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;padding:10px 7px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none}
+thead th{position:sticky;top:0;background:var(--th);color:var(--mut);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;padding:10px 7px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none}
 thead th.l{text-align:left}thead th.c{text-align:center}
-thead th:hover{background:#e6efe9}
-tbody td{padding:8px 7px;text-align:right;border-bottom:1px solid #eef3f0;white-space:nowrap;font-variant-numeric:tabular-nums}
-tbody tr:hover{background:#f7faf8}
-.rk{color:#9fb0aa;font-weight:700;text-align:center;font-size:12px}
+thead th:hover{background:var(--thh)}
+tbody td{padding:8px 7px;text-align:right;border-bottom:1px solid var(--tdline);white-space:nowrap;font-variant-numeric:tabular-nums}
+tbody tr:hover{background:var(--hover)}
+.rk{color:var(--mut);font-weight:700;text-align:center;font-size:12px}
 .tk{font-weight:800;text-align:left;font-size:14px}
 .co{text-align:left;color:var(--mut);font-size:12px;max-width:150px;overflow:hidden;text-overflow:ellipsis}
 .seg{text-align:center;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
-.s-Value{color:#0a6b8a}.s-Mid{color:#7a5cc0}.s-Small{color:#b8860b}.s-Cartera{color:#0a7a55}
+.s-Value{color:var(--sv)}.s-Mid{color:var(--sm)}.s-Small{color:var(--ss)}.s-Cartera{color:var(--sc)}
 .dot{color:var(--teal);font-size:11px}
 .hoy{font-weight:800}
-.ntm{color:#56706a}
-.nm{color:#b9c4bf;font-weight:600}
-.flag{font-size:9px;color:#b8860b;font-weight:800;vertical-align:super;cursor:help}
-.rng{color:#5a6f68;font-size:12px}
-.rng .lo{color:#066b46;font-weight:800}.rng .hi{color:#9aa6a2}
+.ntm{color:var(--mut)}
+.nm{color:var(--nm);font-weight:600}
+.flag{font-size:9px;color:var(--amber);font-weight:800;vertical-align:super;cursor:help}
+.rng{color:var(--mut);font-size:12px}
+.rng .lo{color:var(--lo);font-weight:800}.rng .hi{color:var(--hi)}
 .gaugecell{text-align:center;width:118px}
 .gwrap{display:flex;flex-direction:column;align-items:center;gap:0}
 .gpct{font-size:11.5px;font-weight:800;line-height:1.1}
 .glab{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
-.l-sup{color:#066b46}.l-op{color:#0a7a55}.l-pre{color:#7a8c85}.l-ca{color:#b4322a}
+.l-sup{color:var(--sup)}.l-op{color:var(--op)}.l-pre{color:var(--pre)}.l-ca{color:var(--ca)}
 .foot{color:var(--mut);font-size:12px;margin-top:16px;line-height:1.6}
 .spark{display:block}
+.gaugecell line{stroke:var(--needle)}.gaugecell circle{fill:var(--needle)}
+.spark path{stroke:var(--teal)}.spark rect{fill:var(--band)}.spark circle{fill:var(--teal)}
 </style></head>
-<body><div class="wrap">
+<body><script>try{if((localStorage.getItem("sp_theme")||"dark")==="light")document.body.classList.add("light")}catch(e){}</script><div class="wrap"><div class="topbrand"><a href="index.html">← Volver</a><span class="bd"><span class="t">10</span>StratPicks</span></div>
 <h1>Análisis P/E — Selecciones (Value · MidCap · SmallCap)</h1>
 <p class="sub">Historial año a año del múltiplo <b>P/E LTM</b> (precio ÷ beneficio <b>real</b> últimos 12 meses) descargado de <b>TIKR</b>, al <b>cierre de cada 31-dic</b> (para ver la burbuja 2021–2022). <b>LTM hoy</b> = múltiplo actual; <b>NTM hoy</b> = forward (estimado), solo de referencia. El <b>gauge</b> compara el LTM de hoy contra su propio <b>rango LTM de 7 años</b> (piso ↔ techo): aguja a la derecha (verde) = pegado a su <b>mínimo histórico</b> = súper oportunidad. Todo LTM real vs LTM real. <b>50 activos</b> de las selecciones Value, MidCap y SmallCap (los TrendStars quedan fuera: pre-beneficio, el P/E no aplica).</p>
 <div class="bar">
@@ -161,7 +177,7 @@ function spark(hist,ltm){
   return '<svg class="spark" width="'+W+'" height="'+H+'"><rect x="'+bx0.toFixed(1)+'" y="0" width="'+(bx1-bx0).toFixed(1)+'" height="'+H+'" fill="#fdf3dc"/><path d="'+dpath+'" fill="none" stroke="#0a7a55" stroke-width="1.6"/>'+dots+'</svg>';
 }
 function gauge(opp){
-  const f=Math.max(0,Math.min(1,opp));
+  const f=Math.max(0,Math.min(1,opp))*0.82;
   const cx=23,cy=25,R=15; const a=Math.PI*(1-f);
   const tx=(cx+R*Math.cos(a)).toFixed(1), ty=(cy-R*Math.sin(a)).toFixed(1);
   return '<svg width="54" height="30" viewBox="0 0 46 30">'
