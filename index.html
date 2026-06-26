@@ -161,12 +161,11 @@ body.light .pod-mult{color:#33433d}
 body.light .medal{background:rgba(0,0,0,.10);color:#0c1512}
 .pod.blur2{pointer-events:none}
 .pod.blur2 .pod-tk,.pod.blur2 .pod-nm,.pod.blur2 .pod-mult{filter:blur(2.3px);opacity:.92;user-select:none}
-.mp-base{height:5px;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.18),rgba(255,255,255,.04));border-radius:0 0 5px 5px;margin-bottom:13px}
-body.light .mp-base{background:linear-gradient(90deg,rgba(0,0,0,.03),rgba(0,0,0,.14),rgba(0,0,0,.03))}
-.mp-btn{display:flex;text-decoration:none;align-items:center;justify-content:center;gap:6px;background:#0a5e3f;color:#ffffff;font-weight:900;font-size:15.5px;letter-spacing:.3px;padding:13px;border-radius:12px;border:0;box-shadow:none;transition:.15s}
+.mp-base{height:0;background:none;border:0;margin-bottom:16px}
+body.light .mp-base{background:none}
+.mp-btn{display:flex;text-decoration:none;align-items:center;justify-content:center;gap:6px;background:#0a5e3f;color:#ffffff;font-weight:900;font-size:15.5px;letter-spacing:.3px;padding:13px;border-radius:12px;border:2px solid #0a5e3f;box-shadow:none}
 .mp-card{transition:transform .15s}.mp-card:hover{transform:translateY(-2px)}
-.mp-card:hover .mp-btn{background:#0c7350}
-.mp-btn:hover{transform:translateY(-1px)}
+.mp-card:hover .mp-btn{background:#0a5e3f;border-color:#1bbd84}
 @media(max-width:900px){.hero-row{flex-direction:column;align-items:stretch}.hero-podium{width:100%;max-width:380px;margin:10px auto 0;transform:none}}
 .iconbtn{border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;font-size:14px;width:34px;height:34px;border-radius:50%;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;line-height:1}body.light .iconbtn{background:rgba(0,0,0,.05)}.iconbtn:hover{background:rgba(255,255,255,.14)}.modal{display:none;position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.62);backdrop-filter:blur(4px);justify-content:center;align-items:flex-start;padding:56px 20px;overflow:auto}.modal.open{display:flex}.modal-card{position:relative;background:var(--ink2);border:1px solid var(--line);border-radius:20px;padding:28px 26px 26px;max-width:740px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.55)}body.light .modal-card{background:#fff}.modal-x{position:absolute;top:13px;right:15px;border:0;background:rgba(255,255,255,.10);color:inherit;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:13px}body.light .modal-x{background:rgba(0,0,0,.06)}body.light .gauge line{stroke:#0c1512}body.light .gauge polygon{fill:#0c1512}body.light .gauge circle{fill:#0c1512}
 /* asset modal + logos */
