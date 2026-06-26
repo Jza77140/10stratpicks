@@ -1,0 +1,372 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>10StratPicks</title>
+<style>
+:root{--teal:#10b488;--amber:#f5b133;--ink:#070d0b;--ink2:#0d1714;--card:#10201b;--line:rgba(255,255,255,.09);--mut:#9fb4ac;--white:#f3f8f6}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,'Segoe UI',Inter,Arial;background:var(--ink);color:var(--white);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+[id]{scroll-margin-top:24px}
+/* aurora backdrop */
+.aurora{position:absolute;inset:0;overflow:hidden;z-index:0}
+.aurora::before,.aurora::after{content:"";position:absolute;border-radius:50%;filter:blur(80px);opacity:.55}
+.aurora::before{width:620px;height:620px;left:-160px;top:-220px;background:radial-gradient(circle,#13d39a,#7b3ff2 60%,transparent 70%)}
+.aurora::after{width:540px;height:540px;right:-160px;top:-180px;background:radial-gradient(circle,#f5b133,#ef5da8 55%,transparent 70%)}
+/* nav */
+nav{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:.2px}
+.lm{width:30px;height:30px}
+.links{display:flex;gap:14px;font-size:13.5px;color:#cfe0d9;align-items:center;flex-wrap:nowrap;white-space:nowrap}
+.links a:hover{color:#fff}
+.enter{border:1px solid var(--line);padding:9px 18px;border-radius:30px;font-size:14px;font-weight:600;background:rgba(255,255,255,.04)}
+.enter:hover{background:rgba(255,255,255,.1)}
+.subscribe{border:0;color:#04140e;padding:9px 20px;border-radius:30px;font-weight:800;font-size:14px;line-height:1;display:inline-flex;align-items:center;background:linear-gradient(135deg,#13d39a,#f5b133);box-shadow:0 6px 18px rgba(19,211,154,.35);transition:all .15s}
+.subscribe:hover{transform:translateY(-1px);box-shadow:0 9px 24px rgba(245,177,51,.5)}
+/* hero */
+.hero{position:relative;padding:26px 0 18px}
+.herotext{position:relative;z-index:2;max-width:760px}
+.pill-top{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid var(--line);padding:7px 14px;border-radius:30px;font-size:12.5px;color:#d6e7e0;margin-bottom:22px}
+.pill-top b{color:var(--amber)}
+h1{font-size:64px;line-height:.98;font-weight:850;letter-spacing:-1.6px}
+h1 .am{background:linear-gradient(90deg,#f5b133,#ef5da8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-size:30px;font-weight:600;color:#e9f4ef;margin:14px 0 0;max-width:680px;line-height:1.25;letter-spacing:-.3px}
+.sub b{color:#fff}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:30px;font-size:15px;font-weight:800;transition:.16s;white-space:nowrap}
+.btn-primary{background:linear-gradient(135deg,#13d39a,#0f9e76);color:#04150f;box-shadow:0 12px 30px rgba(19,211,154,.28)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(19,211,154,.4)}
+.btn-primary .ten10w{color:#04150f;font-weight:900}
+.btn-ghost{background:rgba(255,255,255,.05);border:1px solid var(--line);color:#eafff7}
+.btn-ghost:hover{background:rgba(255,255,255,.12)}
+.manifesto{margin-top:34px;display:flex;align-items:center;gap:16px;font-size:14px;color:#a9beb6;line-height:1.4}
+.num10{font-size:54px;font-weight:850;background:linear-gradient(135deg,#13d39a,#f5b133);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;flex:none}
+.ten{background:linear-gradient(135deg,#13d39a,#f5b133);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:850}
+.hero-fade{position:absolute;left:0;right:0;bottom:0;height:70px;z-index:1;background:linear-gradient(to bottom,transparent,var(--ink))}
+/* floating preview card */
+.preview{position:relative;background:linear-gradient(165deg,rgba(255,255,255,.10),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:16px;padding:15px;backdrop-filter:blur(8px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.pv-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.pv-h .t{font-weight:700;font-size:14px}
+.pv-h .b{font-size:11px;color:#0a1f17;background:var(--amber);padding:3px 9px;border-radius:20px;font-weight:800}
+.row{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid rgba(255,255,255,.07);font-size:13px}
+.rk{width:20px;height:20px;border-radius:6px;background:rgba(245,177,51,.18);color:var(--amber);font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex:none}
+.tk{font-weight:700;width:42px;font-size:12.5px}
+.nm{color:var(--mut);font-size:11px;flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.gauge{width:44px;height:27px;flex:none}
+.gauge text{font-family:system-ui}
+.pv-foot{font-size:11px;color:#7e948c;margin-top:12px;text-align:center}
+.lgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.lcard{transition:.16s}
+.lcard:hover{transform:translateY(-4px)}
+.lcard .desc{font-size:11.5px;color:var(--mut);margin:-2px 0 5px;line-height:1.3;min-height:30px}
+.lcard .more{display:inline-block;margin-top:12px;font-size:13px;font-weight:800;color:#13d39a}
+.row.blur{filter:blur(3.5px);opacity:.45;pointer-events:none;user-select:none}
+.lockcta{margin-top:9px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;background:rgba(245,177,51,.10);border:1px solid rgba(245,177,51,.32);border-radius:10px;padding:8px 11px}
+.lockcta span{font-size:11px;color:#f0d18a;font-weight:700}
+.lockcta a{font-size:11.5px;font-weight:800;color:#f5b133}
+.tg{font-size:10.5px;font-weight:800;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.08);color:#cfe0d9}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.scard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;display:flex;gap:14px;align-items:center}
+.scard h3{font-size:17px;margin:0 0 2px}.scard p{font-size:12.5px;color:var(--mut);margin:0}
+.scard .ic2{width:38px;height:38px;flex:none}
+.exnote{font-size:11px;color:#7e948c;margin:12px 0 0}
+@media(max-width:980px){.lgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.lgrid{grid-template-columns:1fr}}
+/* sections */
+.sec{position:relative;z-index:2;padding:6px 0 20px}
+.h2{font-size:30px;font-weight:800;letter-spacing:-.6px;margin:0 0 4px}
+.lead{color:var(--mut);font-size:15px;max-width:560px;margin-bottom:18px}
+/* trust band */
+.band{position:relative;z-index:2;margin:40px 0 10px;border-radius:22px;padding:30px 32px;background:linear-gradient(120deg,#0b1813,#11261f);border:1px solid var(--line);display:flex;gap:28px;align-items:center;flex-wrap:wrap;overflow:hidden}
+.band .big{font-size:23px;font-weight:850;flex:1;min-width:260px;letter-spacing:-.3px}
+.band .big .am{color:var(--amber)}
+.pills{display:flex;gap:22px;flex-wrap:wrap}
+.pil{display:flex;align-items:center;gap:9px;font-size:13.5px;color:#eafff7}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--amber)}
+footer{position:relative;z-index:2;color:#7e948c;font-size:12px;text-align:center;padding:40px 0 34px}
+@media(max-width:900px){
+  h1{font-size:48px}
+  .links{display:none}
+  .sub{font-size:26px}
+  .band{padding:26px 24px}
+}
+@media(max-width:560px){
+  .wrap{padding:0 18px}
+  .hero{padding:30px 0 64px}
+  nav{padding:16px 0}
+  .brand{font-size:18px}
+  h1{font-size:38px;letter-spacing:-1px}
+  .sub{font-size:21px}
+  .pill-top{font-size:11.5px}
+  .cta-row{gap:10px}
+  .btn{flex:1 1 100%;justify-content:center;padding:14px 20px}
+  .num10{font-size:44px}
+  .manifesto{font-size:13px;gap:13px}
+  .h2{font-size:27px}
+  .lead{font-size:14.5px}
+  .band .big{font-size:19px;min-width:0}
+  .pills{gap:14px}
+  .scard{padding:16px}
+}
+@media(max-width:380px){h1{font-size:33px}.sub{font-size:19px}}
+
+/* topbar + tema claro */
+.topbar{position:relative;z-index:6;border-bottom:1px solid var(--line);background:rgba(0,0,0,.12)}
+body.light .topbar{background:rgba(0,0,0,.03)}
+.seg{display:inline-flex;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:20px;padding:2px;gap:1px;flex:none}
+body.light .seg{background:rgba(0,0,0,.05)}
+.segb{border:0;background:transparent;color:var(--mut);font-size:12px;font-weight:700;padding:5px 12px;border-radius:18px;cursor:pointer;font-family:inherit}
+.segb.act{background:#13d39a;color:#06231a}
+.flagb{border:0;background:transparent;color:inherit;font-size:15px;padding:4px 7px;border-radius:13px;cursor:pointer;filter:grayscale(.55);opacity:.5;line-height:1;display:inline-flex;align-items:center;font-family:inherit}
+.flagb.act{filter:none;opacity:1;background:rgba(255,255,255,.12)}
+body.light .flagb.act{background:rgba(0,0,0,.08)}
+body.light{--ink:#eef3f1;--ink2:#e4ece9;--card:#ffffff;--line:rgba(0,0,0,.12);--mut:#54635d;--white:#0c1512}
+body.light .links{color:#33433d}
+body.light .links a:hover{color:#0c1512}
+body.light .sub{color:#26322b}body.light .sub b{color:#0c1512}
+body.light .pill-top{color:#33433d;background:rgba(0,0,0,.04)}
+body.light .btn-ghost{color:#0c1512;background:rgba(0,0,0,.05)}
+body.light .manifesto{color:#4a5a53}
+body.light .preview{background:linear-gradient(165deg,#ffffff,#f3f7f5);box-shadow:0 14px 36px rgba(0,0,0,.10)}
+body.light .row{border-top-color:rgba(0,0,0,.07)}
+body.light .pil{color:#26322b}
+body.light .band{background:linear-gradient(120deg,#eaf3ef,#dfeee8)}
+body.light .scard h3{color:#0c1512}
+body.light .aurora::before,body.light .aurora::after{opacity:.20}
+body.light input{background:rgba(0,0,0,.04)!important;color:#0c1512!important}
+/* hero podium - Momentum Picks */
+.hero-row{display:flex;align-items:center;justify-content:space-between;gap:34px}
+.hero-row .herotext{flex:1}
+.hero-podium{flex:none;width:322px;transform:translateY(34px)}
+.mp-card{position:relative;background:linear-gradient(165deg,rgba(255,255,255,.10),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:18px;padding:15px 16px 14px;backdrop-filter:blur(8px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+body.light .mp-card{background:linear-gradient(165deg,#ffffff,#f3f7f5);box-shadow:0 14px 36px rgba(0,0,0,.10)}
+.mp-head{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14.5px}
+.mp-head .mp-spark{font-size:16px}
+.mp-tag{margin-left:auto;font-size:10px;font-weight:800;color:var(--amber);background:rgba(245,177,51,.16);padding:3px 9px;border-radius:20px}
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:8px;margin:18px 0 0}
+.pod{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:0}
+.pod-mom{font-size:9px;font-weight:800;color:#13d39a;letter-spacing:.2px}
+.pod-tk{font-weight:800;font-size:14px;white-space:nowrap}
+.pod1 .pod-tk{font-size:18px}
+.pod-nm{font-size:9.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:98px;text-align:center}
+.pod-mult{font-size:9.5px;font-weight:800;color:#d6e7e0;white-space:nowrap;letter-spacing:.1px}
+body.light .pod-mult{color:#33433d}
+.step{width:100%;border-radius:9px 9px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:7px;margin-top:2px}
+.step1{height:80px;background:linear-gradient(180deg,rgba(245,177,51,.55),rgba(245,177,51,.10));border:1px solid rgba(245,177,51,.55);border-bottom:0}
+.step2{height:55px;background:linear-gradient(180deg,rgba(19,211,154,.40),rgba(19,211,154,.07));border:1px solid rgba(19,211,154,.40);border-bottom:0}
+.step3{height:42px;background:linear-gradient(180deg,rgba(123,63,242,.40),rgba(123,63,242,.07));border:1px solid rgba(123,63,242,.40);border-bottom:0}
+.medal{width:21px;height:21px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;background:rgba(255,255,255,.18);color:#fff}
+.medal.gold{background:var(--amber);color:#06231a}
+body.light .medal{background:rgba(0,0,0,.10);color:#0c1512}
+.pod.blur2{pointer-events:none}
+.pod.blur2 .pod-tk,.pod.blur2 .pod-nm,.pod.blur2 .pod-mult{filter:blur(3.5px);opacity:.62;user-select:none}
+.mp-base{height:5px;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.18),rgba(255,255,255,.04));border-radius:0 0 5px 5px;margin-bottom:13px}
+body.light .mp-base{background:linear-gradient(90deg,rgba(0,0,0,.03),rgba(0,0,0,.14),rgba(0,0,0,.03))}
+.mp-btn{display:flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,#13d39a,#f5b133);color:#04140e;font-weight:800;font-size:13.5px;padding:10px;border-radius:12px;box-shadow:0 8px 20px rgba(19,211,154,.30);transition:.15s}
+.mp-btn:hover{transform:translateY(-1px);box-shadow:0 11px 26px rgba(245,177,51,.45)}
+@media(max-width:900px){.hero-row{flex-direction:column;align-items:stretch}.hero-podium{width:100%;max-width:380px;margin:10px auto 0;transform:none}}
+.iconbtn{border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit;font-size:14px;width:34px;height:34px;border-radius:50%;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;line-height:1}body.light .iconbtn{background:rgba(0,0,0,.05)}.iconbtn:hover{background:rgba(255,255,255,.14)}.modal{display:none;position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.62);backdrop-filter:blur(4px);justify-content:center;align-items:flex-start;padding:56px 20px;overflow:auto}.modal.open{display:flex}.modal-card{position:relative;background:var(--ink2);border:1px solid var(--line);border-radius:20px;padding:28px 26px 26px;max-width:740px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.55)}body.light .modal-card{background:#fff}.modal-x{position:absolute;top:13px;right:15px;border:0;background:rgba(255,255,255,.10);color:inherit;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:13px}body.light .modal-x{background:rgba(0,0,0,.06)}body.light .gauge line{stroke:#0c1512}body.light .gauge polygon{fill:#0c1512}body.light .gauge circle{fill:#0c1512}</style></head>
+<body>
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><linearGradient id="gg" gradientUnits="userSpaceOnUse" x1="5" y1="0" x2="41" y2="0"><stop offset="0" stop-color="#ef5da8"/><stop offset=".5" stop-color="#f5b133"/><stop offset="1" stop-color="#13d39a"/></linearGradient></defs></svg>
+
+
+<div class="hero">
+ <div class="aurora"></div>
+ <div class="wrap">
+  <nav>
+    <div class="brand"><svg class="lm" viewBox="0 0 40 40"><path d="M6 32 L20 8 L34 32" fill="none" stroke="#13d39a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="28" cy="15" r="4.6" fill="#f5b133"/></svg><span class="ten">10</span>StratPicks</div>
+    <div class="links"><a href="#secciones"><span class="ten">10</span>ValuePicks</a><a href="#secciones"><span class="ten">10</span>MidCaPicks</a><a href="#secciones"><span class="ten">10</span>SmallCaPicks</a><a href="#secciones"><span class="ten">10</span>WisETFs</a><a href="10StratPicks_Filosofia.html" data-k="nav_phil">Filosofía <span class="ten">10</span></a><span class="seg" id="themeTabs"><button class="flagb" data-theme="light" onclick="setTheme('light')" title="Claro">☀️</button><button class="flagb" data-theme="dark" onclick="setTheme('dark')" title="Oscuro">🌙</button></span><span class="seg" id="langTabs"><button class="flagb act" data-lang="es" onclick="setLang('es')" title="Español"><svg width="20" height="14" viewBox="0 0 20 14" style="border-radius:2px;display:block"><rect width="20" height="14" fill="#c60b1e"/><rect y="3.5" width="20" height="7" fill="#ffc400"/></svg><span style="font-size:10.5px;font-weight:800;margin-left:5px">Esp</span></button><button class="flagb" data-lang="en" onclick="setLang('en')" title="English"><svg width="20" height="14" viewBox="0 0 20 14" style="border-radius:2px;display:block"><rect width="20" height="14" fill="#b22234"/><rect y="2" width="20" height="2" fill="#fff"/><rect y="6" width="20" height="2" fill="#fff"/><rect y="10" width="20" height="2" fill="#fff"/><rect width="9" height="8" fill="#3c3b6e"/></svg><span style="font-size:10.5px;font-weight:800;margin-left:5px">Eng</span></button><button class="flagb" data-lang="pt" onclick="setLang('pt')" title="Português"><svg width="20" height="14" viewBox="0 0 20 14" style="border-radius:2px;display:block"><rect width="20" height="14" fill="#009b3a"/><polygon points="10,1.5 18.5,7 10,12.5 1.5,7" fill="#fedf00"/><circle cx="10" cy="7" r="2.9" fill="#3e4095"/></svg><span style="font-size:10.5px;font-weight:800;margin-left:5px">Por</span></button></span><a href="#" onclick="event.preventDefault();openPlans()" class="subscribe" data-k="nav_sub">Suscribirme</a></div>
+  </nav>
+
+  <div class="hero-row">
+   <div class="herotext">
+    <h1 data-k="hero_h1_pre">Picks <span class="am">Fundados</span>,<br>decisiones con análisis</h1>
+    <p class="sub" data-k="sub">Te ayudamos a invertir entre los mejores <span class="ten">10</span>.</p>
+   </div>
+   <div class="hero-podium">
+    <div class="mp-card">
+      <div class="mp-head"><span class="mp-spark">🏆</span><span data-k="mp_h">Top Oportunidades</span><span class="mp-tag">P/E</span></div>
+      <div class="podium">
+        <div class="pod blur2"><div class="pod-tk">••••</div><div class="pod-nm">•••••• · •••</div><div class="pod-mult">••x · ••x</div><div class="step step2"><span class="medal">2</span></div></div>
+        <div class="pod pod1"><div class="pod-mom" data-k="mp_sig">SÚPER OPORT.</div><div class="pod-tk">APP</div><div class="pod-nm">AppLovin · Ad-tech</div><div class="pod-mult">LTM 40,4x · <b style="color:#13d39a">NTM 25,9x</b></div><div class="step step1"><span class="medal gold">1</span></div></div>
+        <div class="pod blur2"><div class="pod-tk">••••</div><div class="pod-nm">•••••• · •••</div><div class="pod-mult">••x · ••x</div><div class="step step3"><span class="medal">3</span></div></div>
+      </div>
+      <div class="mp-base"></div>
+      <a class="mp-btn" href="Seleccion_PE_Consolidado.html" target="_blank" data-k="mp_btn">Ranking <b style="font-weight:900">10</b> →</a>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div class="hero-fade"></div>
+</div>
+
+<div class="wrap sec" id="secciones">
+  <div class="h2" data-k="seg_h2">Varios segmentos, una filosofía</div>
+  <p class="lead" data-k="seg_lead"><span class="ten">10</span> Picks por segmento — los diez que importan.</p>
+
+  <div class="lgrid">
+
+   <div class="preview lcard">
+     <div class="pv-h"><span class="t"><span class="ten">10</span>ValuePicks</span></div>
+     <div class="desc" data-k="d_val">Rentables, con historia y tendencia sólidas.</div>
+     <div class="row"><span class="rk">1</span><span class="tk">FICO</span><span class="nm">Fair Isaac · Software</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="37.8" y2="21.7" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="37.8,21.7 34.8,24.3 34.1,20.1" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">2</span><span class="tk">MSFT</span><span class="nm">Microsoft · Tecnología</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="37.3" y2="19.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="37.3,19.5 34.7,22.5 33.4,18.5" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">3</span><span class="tk">MA</span><span class="nm">Mastercard · Pagos</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="36.5" y2="17.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="36.5,17.4 34.3,20.8 32.5,17.0" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">4</span><span class="tk">NVDA</span><span class="nm">NVIDIA · Semiconductores</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="35.3" y2="15.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="35.3,15.4 33.7,19.1 31.3,15.7" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">5</span><span class="tk">APP</span><span class="nm">AppLovin · Ad-tech</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="33.9" y2="13.7" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="33.9,13.7 32.9,17.6 30.0,14.5" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">6</span><span class="tk">V</span><span class="nm">Visa · Pagos</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="32.2" y2="12.2" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="32.2,12.2 31.8,16.2 28.5,13.6" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">7</span><span class="tk">META</span><span class="nm">Meta Platforms · Tecnología</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="30.4" y2="10.9" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="30.4,10.9 30.5,14.9 26.9,12.9" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">8</span><span class="tk">AVGO</span><span class="nm">Broadcom · Semiconductores</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="28.3" y2="10.0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="28.3,10.0 29.1,13.9 25.2,12.4" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">9</span><span class="tk">MEDP</span><span class="nm">Medpace · Salud</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="26.2" y2="9.3" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="26.2,9.3 27.5,13.1 23.4,12.2" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">10</span><span class="tk">GOOGL</span><span class="nm">Alphabet · Tecnología</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="23.9" y2="9.0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="23.9,9.0 25.8,12.6 21.6,12.3" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+   
+   </div>
+
+   <div class="preview lcard">
+     <div class="pv-h"><span class="t"><span class="ten">10</span>MidCaPicks</span></div>
+     <div class="desc" data-k="d_mid">Calidad de tamaño medio en crecimiento.</div>
+     <div class="row"><span class="rk">1</span><span class="tk">MANH</span><span class="nm">Manhattan Assoc · Software</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="37.8" y2="21.7" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="37.8,21.7 34.8,24.3 34.1,20.1" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">2</span><span class="tk">HALO</span><span class="nm">Halozyme · Salud</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="37.3" y2="19.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="37.3,19.5 34.7,22.5 33.4,18.5" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">3</span><span class="tk">DOCS</span><span class="nm">Doximity · Salud</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="36.5" y2="17.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="36.5,17.4 34.3,20.8 32.5,17.0" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">4</span><span class="tk">WING</span><span class="nm">Wingstop · Consumo</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="35.3" y2="15.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="35.3,15.4 33.7,19.1 31.3,15.7" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">5</span><span class="tk">USLM</span><span class="nm">US Lime & Minerals · Materiales</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="33.9" y2="13.7" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="33.9,13.7 32.9,17.6 30.0,14.5" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">6</span><span class="tk">HLI</span><span class="nm">Houlihan Lokey · Financiero</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="32.2" y2="12.2" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="32.2,12.2 31.8,16.2 28.5,13.6" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">7</span><span class="tk">PAYC</span><span class="nm">Paycom · Software</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="30.4" y2="10.9" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="30.4,10.9 30.5,14.9 26.9,12.9" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">8</span><span class="tk">EXLS</span><span class="nm">ExlService · Servicios IT</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="28.3" y2="10.0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="28.3,10.0 29.1,13.9 25.2,12.4" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">9</span><span class="tk">CSW</span><span class="nm">CSW Industrials · Industrial</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="26.2" y2="9.3" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="26.2,9.3 27.5,13.1 23.4,12.2" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">10</span><span class="tk">PLNT</span><span class="nm">Planet Fitness · Consumo</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="23.9" y2="9.0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="23.9,9.0 25.8,12.6 21.6,12.3" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+   
+   </div>
+
+   <div class="preview lcard">
+     <div class="pv-h"><span class="t"><span class="ten">10</span>SmallCaPicks</span></div>
+     <div class="desc" data-k="d_small">Pequeñas joyas con futuro.</div>
+     <div class="row"><span class="rk">1</span><span class="tk">EVTC</span><span class="nm">Evertec · Pagos</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="37.8" y2="21.7" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="37.8,21.7 34.8,24.3 34.1,20.1" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">2</span><span class="tk">XPEL</span><span class="nm">XPEL · Industrial</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="37.3" y2="19.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="37.3,19.5 34.7,22.5 33.4,18.5" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">3</span><span class="tk">IRMD</span><span class="nm">IRadimed · MedTech</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="36.5" y2="17.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="36.5,17.4 34.3,20.8 32.5,17.0" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">4</span><span class="tk">ELTP</span><span class="nm">Elite Pharma · Salud</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="35.3" y2="15.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="35.3,15.4 33.7,19.1 31.3,15.7" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">5</span><span class="tk">ELMD</span><span class="nm">Electromed · MedTech</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="33.9" y2="13.7" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="33.9,13.7 32.9,17.6 30.0,14.5" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">6</span><span class="tk">AMPH</span><span class="nm">Amphastar · Salud</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="32.2" y2="12.2" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="32.2,12.2 31.8,16.2 28.5,13.6" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">7</span><span class="tk">NATH</span><span class="nm">Nathan's Famous · Consumo</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="30.4" y2="10.9" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="30.4,10.9 30.5,14.9 26.9,12.9" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">8</span><span class="tk">RDVT</span><span class="nm">Red Violet · Datos</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="28.3" y2="10.0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="28.3,10.0 29.1,13.9 25.2,12.4" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">9</span><span class="tk">NUTX</span><span class="nm">Nutex Health · Salud</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="26.2" y2="9.3" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="26.2,9.3 27.5,13.1 23.4,12.2" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">10</span><span class="tk">ESEA</span><span class="nm">Euroseas · Shipping</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="23.9" y2="9.0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="23.9,9.0 25.8,12.6 21.6,12.3" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+   
+   </div>
+
+   <div class="preview lcard">
+     <div class="pv-h"><span class="t"><span class="ten">10</span>WisETFs</span></div>
+     <div class="desc" data-k="d_etf">Sectores del futuro.</div>
+     <div class="row"><span class="rk">1</span><span class="tk">QTUM</span><span class="nm">Computación cuántica</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="37.8" y2="21.7" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="37.8,21.7 34.8,24.3 34.1,20.1" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">2</span><span class="tk">SMH</span><span class="nm">Semiconductores</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="37.3" y2="19.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="37.3,19.5 34.7,22.5 33.4,18.5" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">3</span><span class="tk">ICLN</span><span class="nm">Energía limpia</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="36.5" y2="17.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="36.5,17.4 34.3,20.8 32.5,17.0" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">4</span><span class="tk">AIQ</span><span class="nm">Inteligencia artificial</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="35.3" y2="15.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="35.3,15.4 33.7,19.1 31.3,15.7" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">5</span><span class="tk">XAR</span><span class="nm">Aeroespacial y defensa</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="33.9" y2="13.7" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="33.9,13.7 32.9,17.6 30.0,14.5" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">6</span><span class="tk">BOTZ</span><span class="nm">Robótica e IA</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="32.2" y2="12.2" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="32.2,12.2 31.8,16.2 28.5,13.6" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">7</span><span class="tk">SKYY</span><span class="nm">Cloud computing</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="30.4" y2="10.9" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="30.4,10.9 30.5,14.9 26.9,12.9" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">8</span><span class="tk">CIBR</span><span class="nm">Ciberseguridad</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="28.3" y2="10.0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="28.3,10.0 29.1,13.9 25.2,12.4" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">9</span><span class="tk">NLR</span><span class="nm">Energía nuclear</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="26.2" y2="9.3" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="26.2,9.3 27.5,13.1 23.4,12.2" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+     <div class="row"><span class="rk">10</span><span class="tk">COPX</span><span class="nm">Mineras de cobre</span><svg class="gauge" viewBox="0 0 46 28"><path d="M5 24 A18 18 0 0 1 41 24" fill="none" stroke="url(#gg)" stroke-width="4" stroke-linecap="round"/><line x1="23" y1="24" x2="23.9" y2="9.0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><polygon points="23.9,9.0 25.8,12.6 21.6,12.3" fill="#fff"/><circle cx="23" cy="24" r="2.1" fill="#fff"/></svg></div>
+   
+   </div>
+
+  </div>
+  <div class="exnote">Top 10 reales por Score (sistema propio) · 1–3 visibles, 4–10 para suscriptores · vista de prueba.</div>
+  <!-- ============ SIGN-UP GRATIS ============ -->
+  <div class="wrap sec" id="free">
+    <div style="background:linear-gradient(135deg,rgba(19,211,154,.16),rgba(245,177,51,.10));border:1px solid var(--line);border-radius:18px;padding:18px 20px;text-align:center;max-width:460px;margin:0 auto">
+      <div class="h2" style="margin:0 0 4px" data-k="su_h2">Recib&iacute; <span style="color:var(--amber)">picks y noticias</span></div>
+      
+      <form onsubmit="return false" style="display:flex;gap:8px;align-items:stretch;margin-top:10px">
+        <input type="email" placeholder="tu@email.com" style="flex:1;min-width:0;padding:13px 14px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--white);font-size:14px;outline:none">
+        <button style="padding:13px 20px;border-radius:11px;border:0;background:#13d39a;color:#06231a;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap"  data-k="free_btn">Guardar</button>
+      </form>
+    </div>
+  
+    <div class="band">
+    <div class="big" data-k="band_big">Solo <span class="ten">10</span> por sección</div>
+    <div class="pills">
+      <div class="pil"><span class="dot"></span><span data-k="pil1">Análisis 100% propio</span></div>
+      <div class="pil"><span class="dot"></span><span data-k="pil2">Trazable a los números</span></div>
+      <div class="pil"><span class="dot"></span><span data-k="pil3">Evaluación Integral</span></div>
+    </div>
+  </div>
+  </div>
+
+
+  
+
+  <!-- ============ METODOLOGIA ============ -->
+  
+
+  <!-- ============ ARMA TU VALUE PORTFOLIO ============ -->
+  <div class="wrap sec" id="portfolio">
+    <div class="h2" data-k="p_h2">Arm&aacute; tu <span style="color:var(--amber)">Value Portfolio</span></div>
+    <p class="lead" data-k="p_lead">Combin&aacute; tus picks favoritos de los 4 segmentos en una cartera balanceada &mdash; diversific&aacute; por segmento, tama&ntilde;o y sector.</p>
+    <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:stretch">
+      <div class="preview" style="padding:18px 20px">
+        <div style="font-weight:800;color:var(--white);margin-bottom:10px">Tu cartera (ejemplo)</div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:54px;font-weight:800;color:#13d39a">FICO</span><div style="flex:1;height:9px;border-radius:6px;background:rgba(255,255,255,.08)"><div style="width:30%;height:100%;border-radius:6px;background:linear-gradient(90deg,#13d39a,#0a7)"></div></div><span style="width:42px;text-align:right;color:var(--mut);font-size:12.5px">30%</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:54px;font-weight:800;color:#13d39a">MSFT</span><div style="flex:1;height:9px;border-radius:6px;background:rgba(255,255,255,.08)"><div style="width:25%;height:100%;border-radius:6px;background:linear-gradient(90deg,#13d39a,#0a7)"></div></div><span style="width:42px;text-align:right;color:var(--mut);font-size:12.5px">25%</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:54px;font-weight:800;color:#13d39a">MANH</span><div style="flex:1;height:9px;border-radius:6px;background:rgba(255,255,255,.08)"><div style="width:20%;height:100%;border-radius:6px;background:linear-gradient(90deg,#13d39a,#0a7)"></div></div><span style="width:42px;text-align:right;color:var(--mut);font-size:12.5px">20%</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:54px;font-weight:800;color:#13d39a">EVTC</span><div style="flex:1;height:9px;border-radius:6px;background:rgba(255,255,255,.08)"><div style="width:15%;height:100%;border-radius:6px;background:linear-gradient(90deg,#13d39a,#0a7)"></div></div><span style="width:42px;text-align:right;color:var(--mut);font-size:12.5px">15%</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:54px;font-weight:800;color:#13d39a">SMH</span><div style="flex:1;height:9px;border-radius:6px;background:rgba(255,255,255,.08)"><div style="width:10%;height:100%;border-radius:6px;background:linear-gradient(90deg,#13d39a,#0a7)"></div></div><span style="width:42px;text-align:right;color:var(--mut);font-size:12.5px">10%</span></div>
+        </div>
+        <div style="display:flex;gap:18px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);flex-wrap:wrap">
+          <div><div style="font-size:11px;color:var(--mut)">Convicci&oacute;n cartera</div><div style="font-weight:800;color:#16d39a">&#9650; Alta</div></div>
+          <div><div style="font-size:11px;color:var(--mut)">Diversificaci&oacute;n</div><div style="font-weight:800;color:var(--white)">5 sectores</div></div>
+          <div><div style="font-size:11px;color:var(--mut)">Mezcla tama&ntilde;o</div><div style="font-weight:800;color:var(--white)">Large / Mid / Small</div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:12px">
+        <div class="pil" style="justify-content:flex-start"><span class="dot"></span>Eleg&iacute; entre los <span class="ten" style="margin:0 4px">10</span> de cada segmento</div>
+        <div class="pil" style="justify-content:flex-start"><span class="dot"></span>Pesos sugeridos por convicci&oacute;n y riesgo</div>
+        <div class="pil" style="justify-content:flex-start"><span class="dot"></span>Chequeo de diversificaci&oacute;n (sector / tama&ntilde;o)</div>
+        <div class="pil" style="justify-content:flex-start"><span class="dot"></span>Alertas si un componente pierde validez</div>
+        <a href="#" onclick="event.preventDefault();openPlans()" style="margin-top:6px;display:inline-block;padding:13px 20px;border-radius:12px;background:#13d39a;color:#06231a;font-weight:800;text-decoration:none;text-align:center">Probá el armador (Pro) →</a>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <!-- ============ FAQ ============ -->
+  <div class="wrap sec" id="faq">
+    <div class="h2" data-k="f_h2">Preguntas frecuentes</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+      <div class="scard" style="display:block"><h3 data-k="f_q1">&iquest;Esto es asesoramiento financiero?</h3><p data-k="f_a1">No. Es an&aacute;lisis educativo y trazable. Las decisiones de inversi&oacute;n son tuyas.</p></div>
+      <div class="scard" style="display:block"><h3 data-k="f_q2">&iquest;De d&oacute;nde salen los n&uacute;meros?</h3><p>De los filings oficiales (SEC: 10-K / 20-F / 10-Q), procesados con nuestra rúbrica propia.</p></div>
+      <div class="scard" style="display:block"><h3 data-k="f_q3">&iquest;Cada cu&aacute;nto se actualiza?</h3><p data-k="f_a3">El precio a diario; la tesis se revisa cuando la empresa reporta resultados nuevos.</p></div>
+      <div class="scard" style="display:block"><h3>&iquest;Por qu&eacute; solo <span class="ten">10</span>?</h3><p data-k="f_a4">Foco. Preferimos diez ideas bien fundadas por segmento antes que cientos sin criterio.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+var T={"hero_h1_pre": {"es": "Picks <span class=\"am\">Fundados</span>,<br>decisiones con análisis", "en": "Picks <span class=\"am\">Backed</span>,<br>decisions with analysis", "pt": "Picks <span class=\"am\">Fundamentados</span>,<br>decisões com análise"}, "sub": {"es": "Te ayudamos a invertir entre los mejores <span class=\"ten\">10</span>.", "en": "We help you invest among the best <span class=\"ten\">10</span>.", "pt": "Ajudamos você a investir entre os melhores <span class=\"ten\">10</span>."}, "seg_h2": {"es": "Varios segmentos, una filosofía", "en": "Several segments, one philosophy", "pt": "Vários segmentos, uma filosofia"}, "seg_lead": {"es": "<span class=\"ten\">10</span> Picks por segmento — los diez que importan.", "en": "<span class=\"ten\">10</span> Picks per segment — the ten that matter.", "pt": "<span class=\"ten\">10</span> Picks por segmento — os dez que importam."}, "d_val": {"es": "Rentables, con historia y tendencia sólidas.", "en": "Profitable, with solid history and trend.", "pt": "Rentáveis, com histórico e tendência sólidos."}, "d_mid": {"es": "Calidad de tamaño medio en crecimiento.", "en": "Quality mid-caps, growing.", "pt": "Qualidade de médio porte em crescimento."}, "d_small": {"es": "Pequeñas joyas con futuro.", "en": "Small gems with a future.", "pt": "Pequenas joias com futuro."}, "d_etf": {"es": "Sectores del futuro.", "en": "Sectors of the future.", "pt": "Setores do futuro."}, "band_big": {"es": "Solo <span class=\"ten\">10</span> por sección", "en": "Only <span class=\"ten\">10</span> per section", "pt": "Apenas <span class=\"ten\">10</span> por seção"}, "pil1": {"es": "Análisis 100% propio", "en": "100% in-house analysis", "pt": "Análise 100% própria"}, "pil2": {"es": "Trazable a los números", "en": "Traceable to the numbers", "pt": "Rastreável aos números"}, "pil3": {"es": "Evaluación Integral", "en": "Comprehensive evaluation", "pt": "Avaliação integral"}, "free_btn": {"es": "Guardar", "en": "Save", "pt": "Salvar"}, "nav_sub": {"es": "Suscribirme", "en": "Subscribe", "pt": "Assinar"}, "nav_phil": {"es": "Filosofía <span class=\"ten\">10</span>", "en": "Philosophy <span class=\"ten\">10</span>", "pt": "Filosofia <span class=\"ten\">10</span>"}, "mp_h": {"es": "Top Oportunidades", "en": "Top Opportunities", "pt": "Top Oportunidades"}, "mp_sig": {"es": "SÚPER OPORT.", "en": "TOP VALUE", "pt": "SÚPER OPORT."}, "mp_btn": {"es": "Ranking <b style=\"font-weight:900\">10</b> →", "en": "Ranking <b style=\"font-weight:900\">10</b> →", "pt": "Ranking <b style=\"font-weight:900\">10</b> →"}, "m_h2": {"es": "Cómo elegimos", "en": "How we choose", "pt": "Como escolhemos"}, "m_lead": {"es": "Cada pick pasa por el mismo embudo, <b>trazable a los números oficiales (SEC)</b>.", "en": "Every pick goes through the same funnel, <b>traceable to official filings (SEC)</b>.", "pt": "Cada pick passa pelo mesmo funil, <b>rastreável aos documentos oficiais (SEC)</b>."}, "m_s1": {"es": "Filtro cuantitativo", "en": "Quantitative filter", "pt": "Filtro quantitativo"}, "m_p1": {"es": "Calidad (ROIC, márgenes), Crecimiento y Valoración sobre 10 años de historia.", "en": "Quality (ROIC, margins), Growth and Valuation over 10 years of history.", "pt": "Qualidade (ROIC, margens), Crescimento e Valuation sobre 10 anos de histórico."}, "m_s2": {"es": "Capa subjetiva", "en": "Subjective layer", "pt": "Camada subjetiva"}, "m_p2": {"es": "MOAT, Management y Riesgos leídos directo del 10-K / 20-F de cada empresa.", "en": "MOAT, Management and Risks read straight from each company's 10-K / 20-F.", "pt": "MOAT, Management e Riscos lidos direto do 10-K / 20-F de cada empresa."}, "m_s3": {"es": "Score & Top 10", "en": "Score & Top 10", "pt": "Score & Top 10"}, "m_p3": {"es": "Un puntaje único ordena cada segmento. Publicamos solo los <span class=\"ten\">10</span> mejores.", "en": "A single score ranks each segment. We publish only the top <span class=\"ten\">10</span>.", "pt": "Uma pontuação única ordena cada segmento. Publicamos só os <span class=\"ten\">10</span> melhores."}, "m_s4": {"es": "Trazable a la SEC", "en": "Traceable to the SEC", "pt": "Rastreável à SEC"}, "m_p4": {"es": "Cada número remite al filing oficial. Tesis condicional: <i>válido si / pierde validez si</i>.", "en": "Every number points to the official filing. Conditional thesis: <i>valid if / loses validity if</i>.", "pt": "Cada número remete ao filing oficial. Tese condicional: <i>válido se / perde validade se</i>."}, "p_h2": {"es": "Armá tu <span style=\"color:var(--amber)\">Value Portfolio</span>", "en": "Build your <span style=\"color:var(--amber)\">Value Portfolio</span>", "pt": "Monte seu <span style=\"color:var(--amber)\">Value Portfolio</span>"}, "p_lead": {"es": "Combiná tus picks favoritos de los 4 segmentos en una cartera balanceada — diversificá por segmento, tamaño y sector.", "en": "Combine your favorite picks from all 4 segments into a balanced portfolio — diversify by segment, size and sector.", "pt": "Combine seus picks favoritos dos 4 segmentos em uma carteira balanceada — diversifique por segmento, tamanho e setor."}, "f_h2": {"es": "Preguntas frecuentes", "en": "FAQ", "pt": "Perguntas frequentes"}, "f_q1": {"es": "¿Esto es asesoramiento financiero?", "en": "Is this financial advice?", "pt": "Isto é aconselhamento financeiro?"}, "f_a1": {"es": "No. Es análisis educativo y trazable. Las decisiones de inversión son tuyas.", "en": "No. It is educational, traceable analysis. Investment decisions are yours.", "pt": "Não. É análise educativa e rastreável. As decisões de investimento são suas."}, "f_q2": {"es": "¿De dónde salen los números?", "en": "Where do the numbers come from?", "pt": "De onde saem os números?"}, "f_q3": {"es": "¿Cada cuánto se actualiza?", "en": "How often is it updated?", "pt": "Com que frequência é atualizado?"}, "f_a3": {"es": "El precio a diario; la tesis se revisa cuando la empresa reporta resultados nuevos.", "en": "Price daily; the thesis is reviewed when the company reports new results.", "pt": "O preço diariamente; a tese é revista quando a empresa reporta novos resultados."}, "f_a4": {"es": "Foco. Preferimos diez ideas bien fundadas por segmento antes que cientos sin criterio.", "en": "Focus. We prefer ten well-grounded ideas per segment over hundreds without criteria.", "pt": "Foco. Preferimos dez ideias bem fundamentadas por segmento a centenas sem critério."}, "su_h2": {"es": "Recibí <span style=\"color:var(--amber)\">picks y noticias</span>", "en": "Receive <span style=\"color:var(--amber)\">picks and news</span>", "pt": "Receba <span style=\"color:var(--amber)\">picks e notícias</span>"}, "pl_h2": {"es": "Elegí tu plan", "en": "Choose your plan", "pt": "Escolha seu plano"}, "footer_t": {"es": "10StratPicks · Prototipo de landing — borrador 2026-06-16. Invertir conlleva riesgos; esto no es asesoramiento financiero personalizado. Tickers mostrados a modo ilustrativo.", "en": "10StratPicks · Landing prototype — draft 2026-06-16. Investing involves risk; this is not personalized financial advice. Tickers shown for illustration.", "pt": "10StratPicks · Protótipo de landing — rascunho 2026-06-16. Investir envolve riscos; isto não é aconselhamento financeiro personalizado. Tickers mostrados a título ilustrativo."}};
+
+function openPlans(){document.getElementById("plansModal").classList.add("open");document.body.style.overflow="hidden"}
+function closePlans(){document.getElementById("plansModal").classList.remove("open");document.body.style.overflow=""}
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closePlans()});
+function setTheme(t){document.body.classList.toggle('light',t==='light');
+ document.querySelectorAll('#themeTabs .flagb').forEach(function(b){b.classList.toggle('act',b.dataset.theme===t)});
+ try{localStorage.setItem('sp_theme',t)}catch(e){}}
+function toggleTheme(){setTheme(document.body.classList.contains('light')?'dark':'light')}
+function setLang(l){document.documentElement.lang=l;
+ document.querySelectorAll('[data-k]').forEach(function(e){var o=T[e.dataset.k];if(o&&o[l])e.innerHTML=o[l]});
+ document.querySelectorAll('#langTabs .flagb').forEach(function(b){b.classList.toggle('act',b.dataset.lang===l)});
+ try{localStorage.setItem('sp_lang',l)}catch(e){}}
+(function(){var th='dark',lg='es';try{th=localStorage.getItem('sp_theme')||'dark';lg=localStorage.getItem('sp_lang')||'es'}catch(e){}
+ setTheme(th);setLang(lg);})();
+</script>
+
+<div class="modal" id="plansModal" onclick="if(event.target===this)closePlans()">
+  <div class="modal-card">
+    <button class="modal-x" onclick="closePlans()" aria-label="Cerrar">&#10005;</button>
+    <div class="h2" style="margin:0 0 4px" data-k="pl_h2">Eleg&iacute; tu plan</div>
+    <p class="lead" style="margin:0 0 18px">Empez&aacute; gratis o pas&aacute; a Pro por los <span class="ten">10</span> y la tesis completa.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px"><div class="preview" style="padding:20px 18px;position:relative"><div style="font-weight:800;font-size:17px;color:var(--white)">Gratis</div><div style="font-size:27px;font-weight:900;color:var(--white);margin:6px 0">$0</div><div style="font-size:11px;color:var(--mut);margin-bottom:13px">para siempre</div><div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--white)"><div>&#10003; Top 3 de cada segmento</div><div>&#10003; Ranking y convicci&oacute;n</div><div>&#10003; Pick de la semana por email</div></div><a href="#free" onclick="closePlans()" style="margin-top:15px;display:block;text-align:center;padding:11px;border-radius:11px;text-decoration:none;font-weight:800;border:1px solid var(--line);color:var(--white)">Empezar gratis</a></div><div class="preview" style="padding:20px 18px;position:relative;border:1.5px solid #13d39a"><div style="position:absolute;top:-11px;right:16px;background:var(--amber);color:#241a02;font-weight:800;font-size:10.5px;padding:3px 10px;border-radius:8px">Recomendado</div><div style="font-weight:800;font-size:17px;color:#13d39a">Plus</div><div style="font-size:27px;font-weight:900;color:var(--white);margin:6px 0">$5<span style="font-size:14px;color:var(--mut)"> / mes</span></div><div style="font-size:11px;color:var(--mut);margin-bottom:13px">precio de lanzamiento (borrador)</div><div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--white)"><div>&#10003; <b>Los 10</b> de cada segmento</div><div>&#10003; Tesis resumida de cada pick</div><div>&#10003; Alertas de earnings</div><div>&#10003; 4 segmentos + ETFs</div></div><a href="#" style="margin-top:15px;display:block;text-align:center;padding:11px;border-radius:11px;text-decoration:none;font-weight:800;background:#13d39a;color:#06231a">Quiero Plus</a></div><div class="preview" style="padding:20px 18px;position:relative"><div style="font-weight:800;font-size:17px;color:#f5b133">Pro</div><div style="font-size:27px;font-weight:900;color:var(--white);margin:6px 0">$12<span style="font-size:14px;color:var(--mut)"> / mes</span></div><div style="font-size:11px;color:var(--mut);margin-bottom:13px">precio de lanzamiento (borrador)</div><div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--white)"><div>&#10003; Todo lo de <b>Plus</b></div><div>&#10003; Tesis completa + valoraci&oacute;n</div><div>&#10003; Armador de Value Portfolio</div><div>&#10003; Alertas de invalidaci&oacute;n</div></div><a href="#" style="margin-top:15px;display:block;text-align:center;padding:11px;border-radius:11px;text-decoration:none;font-weight:800;border:1px solid var(--line);color:var(--white)">Quiero Pro</a></div></div>
+  </div>
+</div>
+</body></html>

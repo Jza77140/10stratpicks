@@ -1,0 +1,219 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Análisis P/E — Selecciones (Value · MidCap · SmallCap)</title>
+<style>
+:root{--ink:#10211b;--mut:#6b8079;--line:#e3ebe7;--teal:#0a7a55;--bg:#f4f7f5;--card:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;font-size:14px;line-height:1.45}
+.wrap{max-width:1340px;margin:0 auto;padding:26px 18px 60px}
+h1{font-size:25px;margin:0 0 4px;letter-spacing:-.3px}
+.sub{color:var(--mut);font-size:13.5px;margin:0 0 14px;max-width:1020px}
+.sub b{color:var(--ink)}
+.bar{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:12px 0 14px}
+.glegend{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:12px}
+.glegend .lbl{font-weight:700}
+.legend{margin-left:auto;color:var(--mut);font-size:12px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.fbtn{border:1px solid var(--line);background:#fff;color:#3a4f48;font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer}
+.fbtn.on{background:#0a7a55;color:#fff;border-color:#0a7a55}
+.tablecard{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(20,40,30,.05)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:1200px}
+thead th{position:sticky;top:0;background:#f0f5f2;color:#3a4f48;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;padding:10px 7px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none}
+thead th.l{text-align:left}thead th.c{text-align:center}
+thead th:hover{background:#e6efe9}
+tbody td{padding:8px 7px;text-align:right;border-bottom:1px solid #eef3f0;white-space:nowrap;font-variant-numeric:tabular-nums}
+tbody tr:hover{background:#f7faf8}
+.rk{color:#9fb0aa;font-weight:700;text-align:center;font-size:12px}
+.tk{font-weight:800;text-align:left;font-size:14px}
+.co{text-align:left;color:var(--mut);font-size:12px;max-width:150px;overflow:hidden;text-overflow:ellipsis}
+.seg{text-align:center;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
+.s-Value{color:#0a6b8a}.s-Mid{color:#7a5cc0}.s-Small{color:#b8860b}.s-Cartera{color:#0a7a55}
+.dot{color:var(--teal);font-size:11px}
+.hoy{font-weight:800}
+.ntm{color:#56706a}
+.nm{color:#b9c4bf;font-weight:600}
+.flag{font-size:9px;color:#b8860b;font-weight:800;vertical-align:super;cursor:help}
+.rng{color:#5a6f68;font-size:12px}
+.rng .lo{color:#066b46;font-weight:800}.rng .hi{color:#9aa6a2}
+.gaugecell{text-align:center;width:118px}
+.gwrap{display:flex;flex-direction:column;align-items:center;gap:0}
+.gpct{font-size:11.5px;font-weight:800;line-height:1.1}
+.glab{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
+.l-sup{color:#066b46}.l-op{color:#0a7a55}.l-pre{color:#7a8c85}.l-ca{color:#b4322a}
+.foot{color:var(--mut);font-size:12px;margin-top:16px;line-height:1.6}
+.spark{display:block}
+</style></head>
+<body><div class="wrap">
+<h1>Análisis P/E — Selecciones (Value · MidCap · SmallCap)</h1>
+<p class="sub">Historial año a año del múltiplo <b>P/E LTM</b> (precio ÷ beneficio <b>real</b> últimos 12 meses) descargado de <b>TIKR</b>, al <b>cierre de cada 31-dic</b> (para ver la burbuja 2021–2022). <b>LTM hoy</b> = múltiplo actual; <b>NTM hoy</b> = forward (estimado), solo de referencia. El <b>gauge</b> compara el LTM de hoy contra su propio <b>rango LTM de 7 años</b> (piso ↔ techo): aguja a la derecha (verde) = pegado a su <b>mínimo histórico</b> = súper oportunidad. Todo LTM real vs LTM real. <b>50 activos</b> de las selecciones Value, MidCap y SmallCap (los TrendStars quedan fuera: pre-beneficio, el P/E no aplica).</p>
+<div class="bar">
+<div class="glegend"><span class="lbl">Gauge:</span>
+<svg width="46" height="30" viewBox="0 0 46 30"><path d="M5 25 A18 18 0 0 1 14 9.41" stroke="#d9534f" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M14 9.41 A18 18 0 0 1 32 9.41" stroke="#e0a000" stroke-width="4" fill="none"/><path d="M32 9.41 A18 18 0 0 1 41 25" stroke="#0a7a55" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+<span>← Cerca del techo · Medio · Cerca del piso →</span></div>
+<span class="legend">Fuente: TIKR · al 25-jun-2026 · <b>●</b> = en cartera · ordenado por oportunidad</span>
+</div>
+<div class="filters" id="filters">
+<button class="fbtn on" data-f="all">Todos (50)</button>
+<button class="fbtn" data-f="Cartera">● Cartera</button>
+<button class="fbtn" data-f="Value">Value</button>
+<button class="fbtn" data-f="Mid">MidCap</button>
+<button class="fbtn" data-f="Small">SmallCap</button>
+</div>
+<div class="tablecard"><div class="scroll"><table id="t">
+<thead><tr>
+<th class="c" data-k="rk">#</th>
+<th class="l" data-k="tk">Ticker</th>
+<th class="l" data-k="co">Empresa</th>
+<th class="c" data-k="seg">Segm.</th>
+<th class="l" data-k="trend">Tendencia '19→hoy</th>
+<th data-k="y0">'19</th><th data-k="y1">'20</th><th data-k="y2">'21</th><th data-k="y3">'22</th><th data-k="y4">'23</th><th data-k="y5">'24</th><th data-k="y6">'25</th>
+<th data-k="ltm">LTM hoy</th><th data-k="ntm">NTM hoy</th><th data-k="rng">Piso–Techo 7a</th>
+<th class="c" data-k="opp">Oportunidad</th>
+</tr></thead>
+<tbody id="tb"></tbody>
+</table></div></div>
+<p class="foot">
+<b>n/m</b> = no significativo (BPA negativo o ≈0 → P/E se dispara; o valor &gt;300x). No entra al rango piso–techo.<br>
+<b>Cómo se mide:</b> LTM de hoy vs su <b>rango LTM de 7 años</b>. El <b>%</b> bajo el gauge = cuánto cotiza hoy <b>sobre (o bajo) su piso</b> (negativo = por debajo de su mínimo histórico). <b>Súper oport.</b> = en o bajo su piso · <b>Oportunidad</b> = tercio inferior · <b>En precio</b> = medio · <b>Cara</b> = tercio superior.<br>
+<b><span class="flag">▲</span> Ojo cargos puntuales:</b> tickers con el P/E LTM de hoy muy por encima del NTM (BPA deprimido por un cargo) — el gauge LTM puede verse <i>menos</i> barato de lo real; mirá la columna <b>NTM hoy</b>. Empresas recién rentables o cíclicas (GRND, NUTX, NAGE, ESEA, shipping/biotech) tienen historia LTM corta o saltos → leer con cuidado. <b>TSM</b> en TWD (cotización primaria). Valuación relativa a su propia historia, <b>no</b> una orden de compra.
+</p>
+</div>
+<script>
+// [ticker, empresa, segmento, enCartera, ltmHist(2019..2025), ltmHoy, ntmHoy] — datos reales TIKR (serie diaria, muestreo 31-dic)
+const RAW=[
+// Value
+["NVDA","NVIDIA","Value",1,[60.23,85.36,90.70,62.05,65.24,53.03,46.16],30.48,20.02],
+["MSFT","Microsoft","Value",1,[29.75,35.88,37.62,25.82,36.44,34.81,34.40],21.77,19.74],
+["MELI","MercadoLibre","Value",1,[-212.35,-10144.98,887.48,156.76,80.32,60.49,49.17],43.82,40.72],
+["V","Visa","Value",1,[35.34,44.75,38.49,29.68,31.44,32.48,34.38],28.97,23.84],
+["APP","AppLovin","Value",1,[null,null,-1774.04,-46.01,144.36,97.89,81.82],40.43,25.85],
+["GOOGL","Alphabet","Value",1,[28.74,33.87,27.91,17.52,26.80,25.10,30.89],26.35,27.63],
+["META","Meta Platforms","Value",1,[32.81,31.12,24.07,11.44,31.30,27.65,29.17],20.29,16.99],
+["MA","Mastercard","Value",0,[44.41,53.57,44.20,34.74,37.19,39.81,36.50],28.60,24.43],
+["KLAC","KLA Corp","Value",0,[25.02,31.49,24.41,17.11,26.02,28.82,38.17],68.08,50.50],
+["MEDP","Medpace","Value",0,[33.78,42.32,45.06,32.85,35.92,29.09,39.22],32.25,29.39],
+["AMAT","Applied Materials","Value",0,[21.34,22.02,24.59,13.09,19.98,18.89,29.68],55.39,39.97],
+["FICO","Fair Isaac","Value",0,[59.10,64.69,32.36,42.21,68.75,97.36,63.70],36.19,23.32],
+["EXEL","Exelixis","Value",0,[9.01,41.89,35.82,16.90,83.86,21.51,18.44],17.49,14.51],
+["AVGO","Broadcom","Value",0,[48.92,69.17,44.36,21.08,33.85,179.72,72.56],63.59,24.26],
+["SMCI","Super Micro","Value",0,[15.70,19.97,21.12,10.01,26.22,15.17,23.29],17.01,10.97],
+["PDD","PDD Holdings","Value",0,[-40.48,-188.31,-1698.39,28.88,33.82,9.25,11.71],8.10,6.84],
+["ASML","ASML","Value",0,[50.79,52.80,52.00,40.07,37.04,35.30,37.72],59.20,45.50],
+["TSM","TSMC (Taiwán, TWD)","Value",0,[25.17,27.50,28.18,13.18,17.63,26.53,25.57],32.47,22.58],
+// Cartera (portfolio, fuera de selecciones)
+["AAPL","Apple","Cartera",1,[24.70,40.45,31.65,21.27,31.41,41.19,36.44],35.53,32.17],
+["AMZN","Amazon","Cartera",1,[81.88,95.23,65.25,75.49,79.15,46.91,32.62],28.02,28.10],
+["NOW","ServiceNow","Cartera",1,[1574.96,158.44,594.81,392.15,91.33,164.97,92.64],55.84,21.63],
+// MidCap
+["MANH","Manhattan Assoc.","Mid",0,[54.61,80.96,90.41,69.43,81.26,77.03,49.26],36.64,23.73],
+["HALO","Halozyme","Mid",0,[-64.24,276.81,14.46,38.53,19.77,15.82,14.21],25.04,8.07],
+["DOCS","Doximity","Mid",0,[null,null,147.52,52.26,48.31,61.09,35.46],21.26,14.54],
+["PAYC","Paycom","Mid",0,[92.99,160.53,140.76,72.16,35.40,24.71,19.80],14.86,11.25],
+["PLNT","Planet Fitness","Mid",0,[56.61,1038.15,165.73,92.83,45.31,53.16,44.44],19.42,16.56],
+["WING","Wingstop","Mid",0,[128.63,120.42,177.75,97.60,111.57,83.09,38.86],38.81,33.01],
+["GRND","Grindr","Mid",0,[null,null,null,246.74,-264.42,-59.83,-44.01],30.36,20.51],
+["EXLS","ExlService","Mid",0,[48.04,37.50,41.81,41.23,29.50,38.96,28.67],16.79,11.55],
+["USLM","US Lime & Minerals","Mid",0,[20.06,24.72,19.94,18.89,19.21,38.55,26.32],23.61,19.59],
+["LNTH","Lantheus","Mid",0,[23.63,1637.14,-56.24,33.47,41.66,14.86,27.81],25.20,19.56],
+["HLI","Houlihan Lokey","Mid",0,[19.46,22.15,17.11,16.15,31.98,35.52,28.15],22.19,16.80],
+["CSW","CSW Industrials","Mid",0,[26.80,34.30,37.75,22.35,31.19,47.92,34.43],41.86,23.31],
+["CPRX","Catalyst Pharma","Mid",0,[40.82,4.99,17.38,30.45,30.62,17.71,13.66],18.16,9.89],
+["WHD","Cactus","Mid",0,[17.49,25.57,58.01,32.46,19.49,20.56,18.11],47.90,17.85],
+["LRN","Stride","Mid",0,[23.39,18.74,26.15,14.83,16.52,18.89,10.23],13.29,10.12],
+["WT","WisdomTree","Mid",0,[827.35,-15.73,38.65,9.35,20.83,40.22,21.69],42.41,15.02],
+["PCTY","Paylocity","Mid",0,[116.17,183.90,148.55,121.38,64.40,51.14,38.11],22.21,12.33],
+// SmallCap
+["ELTP","Elite Pharma","Small",0,[-12.06,16.96,5.84,4.72,7.97,-53.44,37.65],10.38,-0.34],
+["EVTC","Evertec","Small",0,[25.43,29.56,23.92,9.18,27.68,27.00,12.86],12.69,6.54],
+["IRMD","IRADIMED","Small",0,[35.43,71.56,96.25,27.49,36.79,37.67,58.96],51.73,43.52],
+["AMPH","Amphastar","Small",0,[18.24,149.12,32.26,18.83,24.13,12.34,11.80],12.61,7.23],
+["XPEL","XPEL","Small",0,[36.30,84.73,59.95,42.30,30.25,22.82,29.55],24.00,25.15],
+["ELMD","Electromed","Small",0,[26.20,23.95,49.99,47.58,29.55,41.14,30.97],33.40,124.19],
+["BRBR","BellRing Brands","Small",0,[null,40.76,40.83,29.14,45.07,40.51,15.91],9.28,9.32],
+["NUTX","Nutex Health","Small",0,[null,null,null,-2.87,-4.05,-3.69,9.16],10.65,7.58],
+["NATH","Nathan's Famous","Small",0,[14.06,19.08,18.90,15.88,16.26,14.72,16.84],20.78,31.71],
+["RDVT","Red Violet","Small",0,[-23.40,-31.22,869.14,830.15,22.09,101.38,72.56],57.31,38.21],
+["NAGE","ChromaDex","Small",0,[-7.65,-12.81,-8.79,-5.61,-16.02,269.62,27.08],16.43,20.29],
+["ESEA","Euroseas","Small",0,[-2.41,14.77,8.40,1.23,1.97,2.22,3.14],3.58,4.23]
+];
+const ok=v=>v!=null&&v>0&&v<=300;
+function evaluate(d){
+  const ref=d.ltm;
+  const vals=d.ltmHist.filter(ok);
+  const flag=(d.ltm&&d.ntm&&d.ntm>0&&d.ltm/d.ntm>2.2)?1:0;
+  if(vals.length<3){ return {lo:null,hi:null,pos:null,opp:null,overFloor:null,v:'na',flag}; } // historia LTM insuficiente
+  const lo=Math.min(...vals), hi=Math.max(...vals);
+  let pos=null, opp=null;
+  if(hi>lo&&ref){ pos=(ref-lo)/(hi-lo); opp=1-pos; }
+  const overFloor=(lo&&ref)?ref/lo-1:null;
+  let v='pre'; if(opp!=null){ if(opp>=1.0)v='sup'; else if(opp>=0.65)v='op'; else if(opp>=0.35)v='pre'; else v='ca'; }
+  return {lo,hi,pos,opp,overFloor,v,flag};
+}
+const cell=v=>{ if(v==null)return '<span class="nm">—</span>'; if(!ok(v))return '<span class="nm" title="'+v.toFixed(1)+'x">n/m</span>'; return v.toFixed(1)+'x'; };
+function spark(hist,ltm){
+  const pts=[]; hist.forEach((v,i)=>{ if(ok(v)) pts.push([i,v]); }); if(ok(ltm)) pts.push([7,ltm]);
+  if(pts.length<2) return '<svg class="spark" width="150" height="34"></svg>';
+  const ys=pts.map(p=>p[1]); const miny=Math.min(...ys),maxy=Math.max(...ys);
+  const W=150,H=34,pad=4; const X=x=>pad+x/7*(W-2*pad); const Y=y=>H-pad-(y-miny)/((maxy-miny)||1)*(H-2*pad);
+  let dpath=pts.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join(' ');
+  const bx0=X(2),bx1=X(3.4);
+  let dots=pts.map(p=>{const last=p[0]===7;return '<circle cx="'+X(p[0]).toFixed(1)+'" cy="'+Y(p[1]).toFixed(1)+'" r="'+(last?2.6:1.6)+'" fill="'+(last?'#0a7a55':'#9fb6ad')+'"/>';}).join('');
+  return '<svg class="spark" width="'+W+'" height="'+H+'"><rect x="'+bx0.toFixed(1)+'" y="0" width="'+(bx1-bx0).toFixed(1)+'" height="'+H+'" fill="#fdf3dc"/><path d="'+dpath+'" fill="none" stroke="#0a7a55" stroke-width="1.6"/>'+dots+'</svg>';
+}
+function gauge(opp){
+  const f=Math.max(0,Math.min(1,opp));
+  const cx=23,cy=25,R=15; const a=Math.PI*(1-f);
+  const tx=(cx+R*Math.cos(a)).toFixed(1), ty=(cy-R*Math.sin(a)).toFixed(1);
+  return '<svg width="54" height="30" viewBox="0 0 46 30">'
+    +'<path d="M5 25 A18 18 0 0 1 14 9.41" stroke="#d9534f" stroke-width="4" fill="none" stroke-linecap="round"/>'
+    +'<path d="M14 9.41 A18 18 0 0 1 32 9.41" stroke="#e0a000" stroke-width="4" fill="none"/>'
+    +'<path d="M32 9.41 A18 18 0 0 1 41 25" stroke="#0a7a55" stroke-width="4" fill="none" stroke-linecap="round"/>'
+    +'<line x1="'+cx+'" y1="'+cy+'" x2="'+tx+'" y2="'+ty+'" stroke="#10211b" stroke-width="1.8" stroke-linecap="round"/>'
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="2.4" fill="#10211b"/></svg>';
+}
+const SEGN={Value:"Value",Mid:"Mid",Small:"Small",Cartera:"Cart."};
+const ROWS=RAW.map(r=>{const d={tk:r[0],co:r[1],seg:r[2],cart:r[3],ltmHist:r[4],ltm:r[5],ntm:r[6]};Object.assign(d,evaluate(d));return d;});
+const GLAB={sup:['Súper oport.','l-sup'],op:['Oportunidad','l-op'],pre:['En precio','l-pre'],ca:['Cara','l-ca'],na:['Hist. corta','l-pre']};
+function rowHTML(d,i){
+  const yr=d.ltmHist.map(v=>'<td>'+cell(v)+'</td>').join('');
+  const g=GLAB[d.v];
+  const of=d.overFloor==null?'':((d.overFloor>=0?'+':'−')+Math.abs(Math.round(d.overFloor*100))+'%');
+  const fl=d.flag?'<span class="flag" title="P/E LTM de hoy muy por encima del NTM (cargo puntual) — ver NTM hoy">▲</span>':'';
+  const rng=(d.lo!=null)?('<span class="lo">'+d.lo.toFixed(1)+'</span><span class="hi"> – '+d.hi.toFixed(1)+'x</span>'):'<span class="nm">—</span>';
+  const gsvg=(d.v==='na')?'<span class="nm" style="font-size:20px;line-height:30px">–</span>':gauge(d.opp??0);
+  const gpct=(d.v==='na')?'':of;
+  return '<tr>'+
+    '<td class="rk">'+(i+1)+'</td>'+
+    '<td class="tk">'+d.tk+(d.cart?' <span class="dot" title="En cartera">●</span>':'')+'</td>'+
+    '<td class="co">'+d.co+'</td>'+
+    '<td class="seg s-'+d.seg+'">'+SEGN[d.seg]+'</td>'+
+    '<td>'+spark(d.ltmHist,d.ltm)+'</td>'+
+    yr+
+    '<td class="hoy">'+cell(d.ltm)+fl+'</td>'+
+    '<td class="ntm">'+cell(d.ntm)+'</td>'+
+    '<td class="rng">'+rng+'</td>'+
+    '<td class="gaugecell"><div class="gwrap">'+gsvg+'<span class="gpct '+g[1]+'">'+gpct+'</span><span class="glab '+g[1]+'">'+g[0]+'</span></div></td>'+
+  '</tr>';
+}
+let cur={k:'opp',dir:-1}, filt='all';
+function render(){
+  let rows=ROWS.filter(d=>filt==='all'||(filt==='Cartera'?d.cart:d.seg===filt));
+  rows.sort((a,b)=>{
+    const val=d=>{const k=cur.k;
+      if(k==='tk')return d.tk; if(k==='co')return d.co; if(k==='seg')return d.seg;
+      if(k==='rk'||k==='opp'||k==='trend')return d.opp??-9;
+      if(k==='ltm')return d.ltm??-1; if(k==='ntm')return d.ntm??-1; if(k==='rng')return d.lo??-1;
+      if(k[0]==='y')return d.ltmHist[+k.slice(1)]??-1; return 0;};
+    const x=val(a),y=val(b); return (typeof x==='string'?x.localeCompare(y):x-y)*cur.dir;
+  });
+  document.getElementById('tb').innerHTML=rows.map((d,i)=>rowHTML(d,i)).join('');
+}
+render();
+document.querySelectorAll('th').forEach(th=>th.addEventListener('click',()=>{
+  const k=th.dataset.k; if(!k)return; cur.dir=(cur.k===k)?-cur.dir:(k==='tk'||k==='co'||k==='seg'?1:-1); cur.k=k; render();
+}));
+document.querySelectorAll('.fbtn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on')); b.classList.add('on'); filt=b.dataset.f; render();
+}));
+</script>
+</body></html>
