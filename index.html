@@ -16,7 +16,7 @@ a{text-decoration:none;color:inherit}
 /* nav */
 nav{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:20px 0}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:.2px}
-.lm{width:30px;height:30px}
+.lm{width:38px;height:36px;flex:none}
 .links{display:flex;gap:14px;font-size:13.5px;color:#cfe0d9;align-items:center;flex-wrap:nowrap;white-space:nowrap}
 .links a:hover{color:#fff}
 .enter{border:1px solid var(--line);padding:9px 18px;border-radius:30px;font-size:14px;font-weight:600;background:rgba(255,255,255,.04)}
@@ -41,7 +41,7 @@ h1 .am{background:linear-gradient(90deg,#f5b133,#ef5da8);-webkit-background-clip
 .btn-ghost:hover{background:rgba(255,255,255,.12)}
 .manifesto{margin-top:34px;display:flex;align-items:center;gap:16px;font-size:14px;color:#a9beb6;line-height:1.4}
 .num10{font-size:54px;font-weight:850;background:linear-gradient(135deg,#13d39a,#f5b133);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;flex:none}
-.ten{background:linear-gradient(135deg,#13d39a,#f5b133);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:850}
+.ten{color:#22C55E;font-weight:900;color:transparent;font-weight:850}
 .hero-fade{position:absolute;left:0;right:0;bottom:0;height:70px;z-index:1;background:linear-gradient(to bottom,transparent,var(--ink))}
 /* floating preview card */
 .preview{position:relative;background:linear-gradient(165deg,rgba(255,255,255,.10),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:16px;padding:15px;backdrop-filter:blur(8px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
@@ -249,7 +249,7 @@ body.light .rkc{background:#fff}
  <div class="aurora"></div>
  <div class="wrap">
   <nav>
-    <div class="brand"><svg class="lm" viewBox="0 0 40 40"><path d="M6 32 L20 8 L34 32" fill="none" stroke="#13d39a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="28" cy="15" r="4.6" fill="#f5b133"/></svg><span class="ten">10</span>StratPicks</div>
+    <div class="brand"><svg class="lm" viewBox="125 85 325 350"><g fill="none" stroke="#22C55E" stroke-linecap="round" stroke-linejoin="round"><path d="M150 150 L205 110 L205 400" stroke-width="46"/><path d="M150 400 L265 400" stroke-width="46"/><path d="M414 153 A118 118 0 1 1 296 153" stroke-width="42"/><path d="M380 123 L414 153 L422 109" stroke-width="42"/><path d="M300 320 L345 275 L380 300 L430 205" stroke-width="26"/><path d="M390 205 L430 205 L430 245" stroke-width="26"/></g></svg>StratPicks</div>
     <div class="links"><a href="#secciones"><span class="ten">10</span>ValuePicks</a><a href="#secciones"><span class="ten">10</span>MidCaPicks</a><a href="#secciones"><span class="ten">10</span>SmallCaPicks</a><a href="#secciones"><span class="ten">10</span>WisETFs</a><a href="10StratPicks_Filosofia.html" data-k="nav_phil">Filosofía <span class="ten">10</span></a><span class="seg" id="themeTabs"><button class="flagb" data-theme="light" onclick="setTheme('light')" title="Claro">☀️</button><button class="flagb" data-theme="dark" onclick="setTheme('dark')" title="Oscuro">🌙</button></span><span class="seg" id="langTabs"><button class="flagb act" data-lang="es" onclick="setLang('es')" title="Español"><svg width="20" height="14" viewBox="0 0 20 14" style="border-radius:2px;display:block"><rect width="20" height="14" fill="#c60b1e"/><rect y="3.5" width="20" height="7" fill="#ffc400"/></svg><span style="font-size:10.5px;font-weight:800;margin-left:5px">Esp</span></button><button class="flagb" data-lang="en" onclick="setLang('en')" title="English"><svg width="20" height="14" viewBox="0 0 20 14" style="border-radius:2px;display:block"><rect width="20" height="14" fill="#b22234"/><rect y="2" width="20" height="2" fill="#fff"/><rect y="6" width="20" height="2" fill="#fff"/><rect y="10" width="20" height="2" fill="#fff"/><rect width="9" height="8" fill="#3c3b6e"/></svg><span style="font-size:10.5px;font-weight:800;margin-left:5px">Eng</span></button><button class="flagb" data-lang="pt" onclick="setLang('pt')" title="Português"><svg width="20" height="14" viewBox="0 0 20 14" style="border-radius:2px;display:block"><rect width="20" height="14" fill="#009b3a"/><polygon points="10,1.5 18.5,7 10,12.5 1.5,7" fill="#fedf00"/><circle cx="10" cy="7" r="2.9" fill="#3e4095"/></svg><span style="font-size:10.5px;font-weight:800;margin-left:5px">Por</span></button></span><a href="#" onclick="event.preventDefault();openPlans()" class="subscribe" data-k="nav_sub">Suscribirme</a></div>
   </nav>
 
