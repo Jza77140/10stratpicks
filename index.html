@@ -225,9 +225,12 @@ body.light .rkc{background:#fff}
 .rkchart .cy{font-size:7.5px;fill:var(--mut)}
 @media(max-width:560px){.rkrow{grid-template-columns:18px 56px 44px 1fr 56px}.rkgw svg{width:40px}}
 
-.dlbox{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:12px;padding:12px;background:#13d39a;color:#04150f;font-weight:900;font-size:15.5px;text-decoration:none;border-radius:13px;letter-spacing:.2px;transition:.15s}
-.dlbox:hover{filter:brightness(1.07);transform:translateY(-1px)}
-.dlbox .dli{font-size:18px}
+.dlrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}
+.dlb2{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 10px;font-weight:900;font-size:13px;text-decoration:none;border-radius:12px;text-align:center;line-height:1.15;transition:.15s}
+.dlb2.r{background:#13d39a;color:#04150f}.dlb2.t{background:#f5b133;color:#04150f}
+.dlb2:hover{filter:brightness(1.07);transform:translateY(-1px)}
+.dllogo{width:20px;height:20px;border-radius:5px;background:#fff;object-fit:contain;flex:none}
+@media(max-width:480px){.dlrow{grid-template-columns:1fr}}
 </style></head>
 <body>
 <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><linearGradient id="gg" gradientUnits="userSpaceOnUse" x1="5" y1="0" x2="41" y2="0"><stop offset="0" stop-color="#ef5da8"/><stop offset=".5" stop-color="#f5b133"/><stop offset="1" stop-color="#13d39a"/></linearGradient></defs></svg>
@@ -441,7 +444,7 @@ function openAsset(tk){var d=ADATA[tk];if(!d)return;var genf=0.80-(d.rk-1)*(0.80
   +'<div class="info"><div class="tk">'+tk+'</div><div class="nm2">'+d.name+'</div><span class="bdg">'+d.seg+' &middot; #'+d.rk+'</span></div>'
   +'<div class="amtopg"><div class="amgen">'+aG(genf)+'<div class="gl">Convicci&oacute;n</div><div class="gsub">Ranking del segmento</div></div><div class="amgen'+(pf==null?" dim":"")+'">'+(pf==null?aGe():aG(pf))+'<div class="gl">PER LTM</div><div class="gv2">'+pdisp+'</div><div class="gsub">Der.= m&aacute;s barato</div></div></div></div>';
  var cards="";for(var i=0;i<AVARS.length;i++){var V=AVARS[i];var raw=d[V.k];var val=aNum(raw);var f=null;if(val!=null){f=V.inv?(V.inv[0]-val)/(V.inv[0]-V.inv[1]):val/V.max;}var disp=(raw==null||raw==="\u2014")?"\u2014":raw;cards+='<div class="amvc'+(val==null?" dim":"")+'">'+(f==null?aGe():aG(f))+'<div class="vv">'+disp+'</div><div class="vl">'+V.lab+'</div><div class="vsub">'+(V.sub||"")+'</div></div>';}
- document.getElementById("ambody").innerHTML=h+'<div class="amgrid">'+cards+'</div>'+(tk==="APP"?'<a class="dlbox" href="Tesis_Quick_APP.html" target="_blank" rel="noopener"><span class="dli">&#11015;</span> Descargar tesis de inversi&oacute;n</a>':'');
+ document.getElementById("ambody").innerHTML=h+'<div class="amgrid">'+cards+'</div>'+(tk==="APP"?'<div class="dlrow"><a class="dlb2 r" href="Tesis_Quick_APP.html" target="_blank" rel="noopener"><img class="dllogo" src="https://assets.parqet.com/logos/symbol/APP?format=png" onerror="this.style.display=&#39;none&#39;"> Resumen de inversi&oacute;n de APP</a><a class="dlb2 t" href="Tesis_APP.html" target="_blank" rel="noopener"><img class="dllogo" src="https://assets.parqet.com/logos/symbol/APP?format=png" onerror="this.style.display=&#39;none&#39;"> Tesis de inversi&oacute;n de APP</a></div>':'');
  document.getElementById("amodal").classList.add("open");document.body.style.overflow="hidden";}
 function closeAsset(){document.getElementById("amodal").classList.remove("open");document.body.style.overflow="";}
 document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAsset();});
