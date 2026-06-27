@@ -225,10 +225,21 @@ body.light .rkc{background:#fff}
 .rkchart .cy{font-size:7.5px;fill:var(--mut)}
 @media(max-width:560px){.rkrow{grid-template-columns:18px 56px 44px 1fr 56px}.rkgw svg{width:40px}}
 
-.dlbox1{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:13px;padding:13px;background:#13d39a;color:#04150f;font-weight:900;font-size:14.5px;text-decoration:none;border-radius:12px;transition:.15s}
+.dlbox1{border:none;width:100%;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:9px;margin-top:13px;padding:13px;background:#13d39a;color:#04150f;font-weight:900;font-size:14.5px;text-decoration:none;border-radius:12px;transition:.15s}
 .dlbox1:hover{filter:brightness(1.07);transform:translateY(-1px)}
 .dllogo{width:20px;height:20px;border-radius:5px;background:#fff;object-fit:contain;flex:none}
 
+.tmodal{display:none;position:fixed;inset:0;z-index:90;background:rgba(8,14,20,.62);align-items:center;justify-content:center;padding:18px}
+.tmodal.open{display:flex}
+.tmc{background:#fff;border-radius:16px;width:min(900px,95vw);height:92vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.tmbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;background:linear-gradient(135deg,#0b3d91,#1e6fd9);color:#fff;flex:none}
+.tmtitle{font-weight:800;font-size:14.5px;letter-spacing:.2px}
+.tmbtns{display:flex;gap:8px;align-items:center}
+.tmpdf{background:#13d39a;color:#04150f;border:none;border-radius:9px;padding:8px 13px;font-weight:800;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:6px}
+.tmpdf:hover{background:#0fbf8a}
+.tmx{background:rgba(255,255,255,.18);color:#fff;border:none;border-radius:9px;width:34px;height:34px;font-size:16px;cursor:pointer}
+.tmx:hover{background:rgba(255,255,255,.32)}
+.tframe{border:0;width:100%;flex:1;background:#f6f7fb}
 </style></head>
 <body>
 <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><linearGradient id="gg" gradientUnits="userSpaceOnUse" x1="5" y1="0" x2="41" y2="0"><stop offset="0" stop-color="#ef5da8"/><stop offset=".5" stop-color="#f5b133"/><stop offset="1" stop-color="#13d39a"/></linearGradient></defs></svg>
@@ -442,7 +453,7 @@ function openAsset(tk){var d=ADATA[tk];if(!d)return;var _VLM={"Atractiva":[0.86,
   +'<div class="info"><div class="tk">'+tk+'</div><div class="nm2">'+d.name+'</div><span class="bdg">'+d.seg+' &middot; #'+d.rk+'</span></div>'
   +'<div class="amtopg"><div class="amgen">'+aG(VF)+'<div class="gl">Valuaci&oacute;n</div><div class="gv2" style="font-size:13px;color:'+VC+'">&#9679; '+VL+'</div></div><div class="amgen'+(pf==null?" dim":"")+'">'+(pf==null?aGe():aG(pf))+'<div class="gl">PER LTM</div><div class="gv2">'+pdisp+'</div><div class="gsub">Der.= m&aacute;s barato</div></div></div></div>';
  var cards="";for(var i=0;i<AVARS.length;i++){var V=AVARS[i];var raw=d[V.k];var val=aNum(raw);var f=null;if(val!=null){f=V.inv?(V.inv[0]-val)/(V.inv[0]-V.inv[1]):val/V.max;}var disp=(raw==null||raw==="\u2014")?"\u2014":raw;cards+='<div class="amvc'+(val==null?" dim":"")+'">'+(f==null?aGe():aG(f))+'<div class="vv">'+disp+'</div><div class="vl">'+V.lab+'</div><div class="vsub">'+(V.sub||"")+'</div></div>';}
- document.getElementById("ambody").innerHTML=h+'<div class="amgrid">'+cards+'</div>'+'<a class="dlbox1" href="Tesis_'+tk+'.html" target="_blank" rel="noopener"><img class="dllogo" src="https://assets.parqet.com/logos/symbol/'+tk+'?format=png" onerror="this.style.display=&#39;none&#39;"> Tesis de Inversi&oacute;n de '+tk+'</a>';
+ document.getElementById("ambody").innerHTML=h+'<div class="amgrid">'+cards+'</div>'+'<button class="dlbox1" onclick="openTesis(\''+tk+'\')"><img class="dllogo" src="https://assets.parqet.com/logos/symbol/'+tk+'?format=png" onerror="this.style.display=&#39;none&#39;"> Tesis de Inversi&oacute;n de '+tk+'</button>';
  document.getElementById("amodal").classList.add("open");document.body.style.overflow="hidden";}
 function closeAsset(){document.getElementById("amodal").classList.remove("open");document.body.style.overflow="";}
 document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAsset();});
@@ -473,5 +484,21 @@ function openRanking(){var html='';var _os=TOP10.map(function(x){return x.opp;})
  document.getElementById('rkbody').innerHTML=html;document.getElementById('rkmodal').classList.add('open');document.body.style.overflow='hidden';}
 function closeRanking(){document.getElementById('rkmodal').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeRanking();});
+</script>
+<div class="tmodal" id="tmodal" onclick="if(event.target===this)closeTesis()">
+ <div class="tmc">
+  <div class="tmbar"><span class="tmtitle" id="tmtitle">Tesis de Inversi&oacute;n</span>
+   <span class="tmbtns"><button class="tmpdf" id="tmpdf">&#10515; Descargar PDF</button><button class="tmx" onclick="closeTesis()">&#10005;</button></span>
+  </div>
+  <iframe id="tframe" class="tframe" title="Tesis"></iframe>
+ </div>
+</div>
+<script>
+function openTesis(tk){var f=document.getElementById('tframe');f.src='Tesis_'+tk+'.html';
+ document.getElementById('tmtitle').innerHTML='Tesis de Inversi\u00f3n \u00b7 '+tk;
+ document.getElementById('tmpdf').onclick=function(){try{f.contentWindow.focus();f.contentWindow.print();}catch(e){window.open('Tesis_'+tk+'.html','_blank');}};
+ document.getElementById('tmodal').classList.add('open');document.body.style.overflow='hidden';}
+function closeTesis(){var m=document.getElementById('tmodal');m.classList.remove('open');document.getElementById('tframe').src='';if(!document.getElementById('amodal').classList.contains('open'))document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var tm=document.getElementById('tmodal');if(tm&&tm.classList.contains('open'))closeTesis();}});
 </script>
 </body></html>
