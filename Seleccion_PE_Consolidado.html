@@ -69,7 +69,7 @@ tbody tr:hover{background:var(--hover)}
 <span class="legend">Fuente: TIKR · al 25-jun-2026 · <b>●</b> = en cartera · ordenado por oportunidad</span>
 </div>
 <div class="filters" id="filters">
-<button class="fbtn on" data-f="all">Todos (30)</button>
+<button class="fbtn on" data-f="all">Todos (47)</button>
 <button class="fbtn" data-f="Value">Value</button>
 <button class="fbtn" data-f="Mid">MidCap</button>
 <button class="fbtn" data-f="Small">SmallCap</button>
@@ -151,7 +151,7 @@ const RAW=[
 ["NAGE","ChromaDex","Small",0,[-7.65,-12.81,-8.79,-5.61,-16.02,269.62,27.08],16.43,20.29],
 ["ESEA","Euroseas","Small",0,[-2.41,14.77,8.40,1.23,1.97,2.22,3.14],3.58,4.23]
 ];
-const ALLOWED=new Set(["FICO", "MSFT", "MA", "NVDA", "APP", "V", "META", "AVGO", "MEDP", "GOOGL", "MANH", "HALO", "DOCS", "WING", "USLM", "HLI", "PAYC", "EXLS", "CSW", "PLNT", "EVTC", "XPEL", "IRMD", "ELTP", "ELMD", "AMPH", "NATH", "RDVT", "NUTX", "ESEA"]);(function(){const _k=RAW.filter(r=>ALLOWED.has(r[0]));RAW.length=0;_k.forEach(x=>RAW.push(x));})();
+
 const ok=v=>v!=null&&v>0&&v<=300;
 function evaluate(d){
   const ref=d.ltm;
