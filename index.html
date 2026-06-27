@@ -460,7 +460,7 @@ function openAsset(tk){var d=ADATA[tk];if(!d)return;var _VLM={"Atractiva":[0.86,
  document.getElementById("amodal").classList.add("open");document.body.style.overflow="hidden";}
 function closeAsset(){document.getElementById("amodal").classList.remove("open");document.body.style.overflow="";}
 document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAsset();});
-document.querySelectorAll(".lcard .row").forEach(function(r){var tkEl=r.querySelector(".tk");if(!tkEl)return;var tk=tkEl.innerText.trim();if(!ADATA[tk])return;r.classList.add("clk");var im=document.createElement("img");im.className="lg";im.src="https://assets.parqet.com/logos/symbol/"+tk+"?format=png";im.onerror=function(){this.style.display="none";};r.insertBefore(im,r.querySelector(".rk").nextSibling);r.addEventListener("click",function(){openAsset(tk);});});
+document.querySelectorAll(".lcard .row").forEach(function(r){var tkEl=r.querySelector(".tk");if(!tkEl)return;var tk=tkEl.innerText.trim();if(!ADATA[tk])return;r.classList.add("clk");var im=document.createElement("img");im.className="lg";im.src="https://assets.parqet.com/logos/symbol/"+tk+"?format=png";im.onerror=function(){this.style.display="none";};r.insertBefore(im,r.querySelector(".rk").nextSibling);r.addEventListener("click",function(){openAsset(tk);});var _VF={"Atractiva":0.86,"En Precio":0.62,"Exigente":0.40,"Muy exigente":0.16}[ADATA[tk].val];if(_VF!=null){var _g=r.querySelector(".gauge");if(_g)_g.outerHTML=aG(_VF).replace("<svg ",'<svg class="gauge" ');}});
 </script>
 
 <div class="amodal" id="rkmodal" onclick="if(event.target===this)closeRanking()">
