@@ -173,7 +173,7 @@ body.light .mp-base{background:none}
 .lcard .row.clk{cursor:pointer;border-radius:8px}
 .lcard .row.clk:hover{background:rgba(255,255,255,.06)}
 body.light .lcard .row.clk:hover{background:rgba(0,0,0,.04)}
-.lg{width:18px;height:18px;border-radius:5px;object-fit:contain;background:#fff;flex:none;margin-right:2px}
+.lg{width:18px;height:18px;border-radius:5px;object-fit:contain;background:#fff;flex:none;margin-right:2px}.lgfb{width:18px;height:18px;border-radius:5px;background:var(--teal);color:#fff;font-weight:800;font-size:10px;display:inline-flex;align-items:center;justify-content:center;flex:none;margin-right:2px}
 .amodal{display:none;position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.62);backdrop-filter:blur(4px);justify-content:center;align-items:center;padding:18px 16px;overflow:auto}
 .amodal.open{display:flex}
 .amc{position:relative;background:var(--ink2);border:1px solid var(--line);border-radius:20px;padding:18px 20px 16px;max-width:600px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.55)}
@@ -458,7 +458,7 @@ function openAsset(tk){var d=ADATA[tk];if(!d)return;var _VLM={"Atractiva":[0.86,
  document.getElementById("amodal").classList.add("open");document.body.style.overflow="hidden";}
 function closeAsset(){document.getElementById("amodal").classList.remove("open");document.body.style.overflow="";}
 document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAsset();});
-document.querySelectorAll(".lcard .row").forEach(function(r){var tkEl=r.querySelector(".tk");if(!tkEl)return;var tk=tkEl.innerText.trim();var isE=!!(typeof AETF!=="undefined"&&AETF[tk]);if(!ADATA[tk]&&!isE)return;r.classList.add("clk");var im=document.createElement("img");im.className="lg";im.src="https://assets.parqet.com/logos/symbol/"+tk+"?format=png";im.onerror=function(){this.style.display="none";};r.insertBefore(im,r.querySelector(".rk").nextSibling);r.addEventListener("click",function(){isE?openETF(tk):openAsset(tk);});var _VF=isE?AETF[tk].vf:({"Atractiva":0.86,"Razonable":0.62,"Exigente":0.40,"Muy exigente":0.16}[ADATA[tk].val]);if(_VF!=null){var _g=r.querySelector(".gauge");if(_g)_g.outerHTML=aG(_VF).replace("<svg ",'<svg class="gauge" ');}});
+document.querySelectorAll(".lcard .row").forEach(function(r){var tkEl=r.querySelector(".tk");if(!tkEl)return;var tk=tkEl.innerText.trim();var isE=!!(typeof AETF!=="undefined"&&AETF[tk]);if(!ADATA[tk]&&!isE)return;r.classList.add("clk");var im=document.createElement("img");im.className="lg";im.src="https://assets.parqet.com/logos/symbol/"+tk+"?format=png";im.onerror=function(){var b=document.createElement("span");b.className="lgfb";b.textContent=tk.charAt(0);this.replaceWith(b);};r.insertBefore(im,r.querySelector(".rk").nextSibling);r.addEventListener("click",function(){isE?openETF(tk):openAsset(tk);});var _VF=isE?AETF[tk].vf:({"Atractiva":0.86,"Razonable":0.62,"Exigente":0.40,"Muy exigente":0.16}[ADATA[tk].val]);if(_VF!=null){var _g=r.querySelector(".gauge");if(_g)_g.outerHTML=aG(_VF).replace("<svg ",'<svg class="gauge" ');}});
 </script>
 
 <div class="amodal" id="rkmodal" onclick="if(event.target===this)closeRanking()">
