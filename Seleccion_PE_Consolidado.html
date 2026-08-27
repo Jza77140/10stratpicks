@@ -95,6 +95,186 @@ tbody tr:hover{background:var(--hover)}
 </div>
 <script>
 // [ticker, empresa, segmento, enCartera, ltmHist(2019..2025), ltmHoy, ntmHoy] — datos reales TIKR (serie diaria, muestreo 31-dic)
+const RAW=[["NVDA", "NVIDIA", "Value", "", [60.23, 85.36, 90.7, 62.05, 65.24, 53.03, 46.16], 31.93, 21.629], ["APP", "AppLovin", "Value", "", [null, null, -1774.04, -46.01, 144.36, 97.89, 81.82], 22.96, 15.887], ["MSFT", "Microsoft", "Value", "", [29.75, 35.88, 37.62, 25.82, 36.44, 34.81, 34.4], 27.15, 24.751], ["META", "Meta Platforms", "Value", "", [32.81, 31.12, 24.07, 11.44, 31.3, 27.65, 29.17], 21.07, 17.499], ["MA", "Mastercard", "Value", "", [44.41, 53.57, 44.2, 34.74, 37.19, 39.81, 36.5], 32.99, 27.908], ["V", "Visa", "Value", "", [35.34, 44.75, 38.49, 29.68, 31.44, 32.48, 34.38], 32.55, 26.225], ["AVGO", "Broadcom", "Value", "", [48.92, 69.17, 44.36, 21.08, 33.85, 179.72, 72.56], 59.71, 23.212], ["GOOGL", "Alphabet", "Value", "", [28.74, 33.87, 27.91, 17.52, 26.8, 25.1, 30.89], 17.45, 25.533], ["NVO", "Novo Nordisk", "Value", "", [24.47, 25.08, 35.99, 44.32, 43.66, 27.17, 13.86], 11.72, 12.715], ["INTU", "Intuit", "Value", "", [null, null, null, null, null, null, null], 22.62, 13.111], ["UTHR", "United Therapeutics", "Value", "", [-41.81, 14.33, 21.79, 18.92, 12.11, 15.53, 18.47], 18.35, 17.63], ["BX", "Blackstone", "Value", "", [24.3, 58.24, 17.92, 21.26, 55.33, 59.21, 44.3], 32.16, 22.651], ["ERIE", "Erie Indemnity", "Value", "", [27.18, 44.27, 32.99, 45.14, 43.73, 38.56, 23.14], 24.38, 19.363], ["LLY", "Eli Lilly and", "Value", "", [29.14, 27.62, 42.17, 55, 105.58, 83.47, 52.57], 41.86, 29.265], ["IBKR", "Interactive Brokers Gr", "Value", "", [22.31, 28.22, 23.38, 23.34, 15.07, 26.93, 31.03], 36.95, 30.79], ["AG", "First Majestic Silver", "Value", "", [null, null, null, null, null, null, null], 30.0, 18.776], ["KSPI", "Joint Stock Company Ka", "Value", "", [null, null, 31.17, 11.25, 10.67, 9.58, 7.9], 9.65, 7.638], ["ASML", "ASML Holding", "Value", "", [null, null, null, null, null, null, null], 55.49, 30.778], ["AMAT", "Applied Materials", "Value", "", [null, null, null, null, null, null, null], 41.77, 27.435], ["MELI", "MercadoLibre", "Value", "", [-212.35, -10144.98, 887.48, 156.76, 80.32, 60.49, 49.17], 53.01, 45.227], ["HALO", "Halozyme Therapeutics", "Value", "", [null, null, null, null, null, null, null], 32.12, 10.837], ["PAYC", "Paycom Software", "Value", "", [null, null, null, null, null, null, null], 24.56, 17.803], ["AMZN", "Amazon.com", "Value", "", [null, null, null, null, null, null, null], 21.07, 27.743], ["AYI", "Acuity", "Value", "", [16.65, 19.31, 25.26, 14.95, 19.04, 21.74, 28.73], 22.35, 15.89], ["HMY", "Harmony Gold Mining Co", "Value", "", [null, null, null, null, null, null, null], 14.67, 6.812], ["PLMR", "Palomar Holdings", "Mid", "", [259.42, 117.85, 62.09, 23.37, 19.61, 25.01, 21.04], 17.48, 11.661], ["ATAT", "Atour Lifestyle Holdin", "Mid", "", [null, null, null, null, 39.67, 22.47, 26.64], 16.63, 14.944], ["GNTX", "Gentex", "Mid", "", [17.46, 27.84, 20.03, 20.37, 19.18, 15.21, 13.75], 12.53, 11.225], ["VCTR", "Victory Capital Holdin", "Mid", "", [22.27, 9.37, 10.29, 6.69, 11.36, 16.25, 16.17], 21.15, 14.827], ["LAUR", "Laureate Education", "Mid", "", [-519.13, 19.92, -4.5, 76.41, 20.85, 11.38, 24.81], 16.74, 16.936], ["KNSL", "Kinsale Capital Group", "Mid", "", [44.5, 66.77, 38.49, 43.09, 28.66, 26.54, 19.22], 16.05, 18.476], ["DLO", "DLocal", "Mid", "", [null, null, 162.92, 43.38, 39.38, 28.27, 25.25], 22.23, 14.875], ["TBBK", "The Bancorp", "Mid", "", [null, null, null, null, null, null, null], 12.5, 9.799], ["DOCS", "Doximity", "Mid", "", [null, null, null, 155.2, 49.0, 25.9, 40.8], 30.03, 18.192], ["HLNE", "Hamilton Lane", "Mid", "", [38.97, 40.29, 24.91, 17.15, 37.23, 31.99, 24.22], 16.03, 14.894], ["HLI", "Houlihan Lokey", "Mid", "", [null, null, null, null, null, null, null], 21.66, 17.016], ["MNSO", "MINISO Group", "Mid", "", [null, null, null, null, null, null, null], 11.89, 7.481], ["CVSA", "Covista", "Mid", "", [12.84, 7.07, 44.19, 31.85, 24.34, 20.86, 15.8], 17.73, 14.917], ["EXLS", "ExlService Holdings", "Mid", "", [null, null, null, null, null, null, null], 23.88, 15.953], ["PCTY", "Paylocity Holding", "Mid", "", [null, null, null, null, null, null, null], 30.99, 17.923], ["ACM", "AECOM", "Mid", "", [-25.95, 46.96, 39.26, 31.11, 114.11, 28.79, 19.9], 22.82, 11.022], ["CXT", "Crane NXT", "Mid", "", [null, null, null, null, null, null, null], 20.93, 11.354], ["GBFH", "GBank Financial Holdin", "Small", "", [null, null, null, null, null, 41.23, 26.11], 16.57, 9.798], ["MSB", "Mesabi Trust", "Small", "", [9.72, 19.9, 5.65, 9.18, 23.81, 4.01, 29.37], 26.38, 8.947], ["CLMB", "Climb Global Solutions", "Small", "", [11.27, 21.37, 18.62, 12.53, 20.86, 34.4, 22.21], 25.5, 17.393], ["CBNA", "Chain Bridge Bancorp", "Small", "", [null, null, null, null, null, 5.58, 12.11], 11.31, 10.376], ["ASIC", "Ategrity Specialty Ins", "Small", "", [null, null, null, null, null, null, 121.15], 12.14, 11.247], ["BHRB", "Burke & Herbert", "Small", "", [14.78, 19.85, 11.16, 13.43, 15.23, 32.24, 8.83], 11.9, 8.306], ["BCAL", "California BanCorp", "Small", "", [15.56, 14.4, 34.93, 27.7, 10.79, -49.55, 9.72], 11.61, 11.955], ["XZO", "Exzeo Group", "Small", "", [null, null, null, null, null, null, null], 16.93, 15.264], ["AFYA", "Afya", "Small", "", [10.52, 40.43, 34.35, 21.91, 28.12, 13.57, 10.26], 8.57, 7.44], ["ASTH", "Astrana Health", "Small", "", [null, null, null, null, null, null, null], 47.09, 11.727], ["TGLS", "Tecnoglass", "Small", "", [null, null, null, null, null, null, null], 14.3, 14.887]];
+
+const ok=v=>v!=null&&v>0&&v<=300;
+function evaluate(d){
+  const ref=d.ltm;
+  const vals=d.ltmHist.filter(ok);
+  const flag=(d.ltm&&d.ntm&&d.ntm>0&&d.ltm/d.ntm>2.2)?1:0;
+  if(vals.length<3){ return {lo:null,hi:null,pos:null,opp:null,overFloor:null,v:'na',flag}; } // historia LTM insuficiente
+  const lo=Math.min(...vals), hi=Math.max(...vals);
+  let pos=null, opp=null;
+  if(hi>lo&&ref){ pos=(ref-lo)/(hi-lo); opp=1-pos; }
+  const overFloor=(lo&&ref)?ref/lo-1:null;
+  let v='pre'; if(opp!=null){ if(opp>=1.0)v='sup'; else if(opp>=0.65)v='op'; else if(opp>=0.35)v='pre'; else v='ca'; }
+  return {lo,hi,pos,opp,overFloor,v,flag};
+}
+const cell=v=>{ if(v==null)return '<span class="nm">—</span>'; if(!ok(v))return '<span class="nm" title="'+v.toFixed(1)+'x">n/m</span>'; return v.toFixed(1)+'x'; };
+function spark(hist,ltm){
+  const pts=[]; hist.forEach((v,i)=>{ if(ok(v)) pts.push([i,v]); }); if(ok(ltm)) pts.push([7,ltm]);
+  if(pts.length<2) return '<svg class="spark" width="150" height="34"></svg>';
+  const ys=pts.map(p=>p[1]); const miny=Math.min(...ys),maxy=Math.max(...ys);
+  const W=150,H=34,pad=4; const X=x=>pad+x/7*(W-2*pad); const Y=y=>H-pad-(y-miny)/((maxy-miny)||1)*(H-2*pad);
+  let dpath=pts.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join(' ');
+  const bx0=X(2),bx1=X(3.4);
+  let dots=pts.map(p=>{const last=p[0]===7;return '<circle cx="'+X(p[0]).toFixed(1)+'" cy="'+Y(p[1]).toFixed(1)+'" r="'+(last?2.6:1.6)+'" fill="'+(last?'#0a7a55':'#9fb6ad')+'"/>';}).join('');
+  return '<svg class="spark" width="'+W+'" height="'+H+'"><rect x="'+bx0.toFixed(1)+'" y="0" width="'+(bx1-bx0).toFixed(1)+'" height="'+H+'" fill="#fdf3dc"/><path d="'+dpath+'" fill="none" stroke="#0a7a55" stroke-width="1.6"/>'+dots+'</svg>';
+}
+function gauge(opp){
+  const f=Math.max(0,Math.min(1,opp))*0.82;
+  const cx=23,cy=25,R=15; const a=Math.PI*(1-f);
+  const tx=(cx+R*Math.cos(a)).toFixed(1), ty=(cy-R*Math.sin(a)).toFixed(1);
+  return '<svg width="54" height="30" viewBox="0 0 46 30">'
+    +'<path d="M5 25 A18 18 0 0 1 14 9.41" stroke="#d9534f" stroke-width="4" fill="none" stroke-linecap="round"/>'
+    +'<path d="M14 9.41 A18 18 0 0 1 32 9.41" stroke="#e0a000" stroke-width="4" fill="none"/>'
+    +'<path d="M32 9.41 A18 18 0 0 1 41 25" stroke="#0a7a55" stroke-width="4" fill="none" stroke-linecap="round"/>'
+    +'<line x1="'+cx+'" y1="'+cy+'" x2="'+tx+'" y2="'+ty+'" stroke="#10211b" stroke-width="1.8" stroke-linecap="round"/>'
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="2.4" fill="#10211b"/></svg>';
+}
+const SEGN={Value:"Value",Mid:"Mid",Small:"Small",Cartera:"Cart."};
+const ROWS=RAW.map(r=>{const d={tk:r[0],co:r[1],seg:r[2],cart:r[3],ltmHist:r[4],ltm:r[5],ntm:r[6]};Object.assign(d,evaluate(d));return d;});
+const GLAB={sup:['Oportunidad','l-sup'],op:['Oportunidad','l-op'],pre:['En precio','l-pre'],ca:['Cara','l-ca'],na:['Hist. corta','l-pre']};
+function rowHTML(d,i){
+  const yr=d.ltmHist.map(v=>'<td>'+cell(v)+'</td>').join('');
+  const g=GLAB[d.v];
+  const of=d.overFloor==null?'':((d.overFloor>=0?'+':'−')+Math.abs(Math.round(d.overFloor*100))+'%');
+  const fl=d.flag?'<span class="flag" title="P/E LTM de hoy muy por encima del NTM (cargo puntual) — ver NTM hoy">▲</span>':'';
+  const rng=(d.lo!=null)?('<span class="lo">'+d.lo.toFixed(1)+'</span><span class="hi"> – '+d.hi.toFixed(1)+'x</span>'):'<span class="nm">—</span>';
+  const gsvg=(d.v==='na')?'<span class="nm" style="font-size:20px;line-height:30px">–</span>':gauge(d.opp??0);
+  const gpct=(d.v==='na')?'':of;
+  return '<tr>'+
+    '<td class="rk">'+(i+1)+'</td>'+
+    '<td class="tk">'+d.tk+(d.cart?' <span class="dot" title="En cartera">●</span>':'')+'</td>'+
+    '<td class="co">'+d.co+'</td>'+
+    '<td class="seg s-'+d.seg+'">'+SEGN[d.seg]+'</td>'+
+    '<td>'+spark(d.ltmHist,d.ltm)+'</td>'+
+    yr+
+    '<td class="hoy">'+cell(d.ltm)+fl+'</td>'+
+    '<td class="ntm">'+cell(d.ntm)+'</td>'+
+    '<td class="rng">'+rng+'</td>'+
+    '<td class="gaugecell"><div class="gwrap">'+gsvg+'<span class="glab '+g[1]+'">'+g[0]+'</span></div></td>'+
+  '</tr>';
+}
+let cur={k:'opp',dir:-1}, filt='all';
+function render(){
+  let rows=ROWS.filter(d=>filt==='all'||(filt==='Cartera'?d.cart:d.seg===filt));
+  rows.sort((a,b)=>{
+    const val=d=>{const k=cur.k;
+      if(k==='tk')return d.tk; if(k==='co')return d.co; if(k==='seg')return d.seg;
+      if(k==='rk'||k==='opp'||k==='trend')return d.opp??-9;
+      if(k==='ltm')return d.ltm??-1; if(k==='ntm')return d.ntm??-1; if(k==='rng')return d.lo??-1;
+      if(k[0]==='y')return d.ltmHist[+k.slice(1)]??-1; return 0;};
+    const x=val(a),y=val(b); return (typeof x==='string'?x.localeCompare(y):x-y)*cur.dir;
+  });
+  document.getElementById('tb').innerHTML=rows.map((d,i)=>rowHTML(d,i)).join('');
+}
+render();
+document.querySelectorAll('th').forEach(th=>th.addEventListener('click',()=>{
+  const k=th.dataset.k; if(!k)return; cur.dir=(cur.k===k)?-cur.dir:(k==='tk'||k==='co'||k==='seg'?1:-1); cur.k=k; render();
+}));
+document.querySelectorAll('.fbtn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on')); b.classList.add('on'); filt=b.dataset.f; render();
+}));
+</script>
+</body></html>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Análisis P/E — Selecciones (Value · MidCap · SmallCap)</title>
+<style>
+:root{
+--bg:#0a1611;--ink:#eafff7;--mut:#8ea69d;--line:rgba(255,255,255,.10);--card:#11211b;--teal:#13d39a;
+--th:#16271f;--thh:#1b2f26;--tdline:rgba(255,255,255,.07);--hover:rgba(255,255,255,.045);
+--needle:#eafff7;--band:rgba(245,177,51,.16);
+--sup:#2ee0a6;--op:#13d39a;--pre:#9fb4ac;--ca:#ff6b61;--lo:#2ee0a6;--hi:#7e948c;--amber:#f5b133;
+--sv:#5cc6e6;--sm:#b29bff;--ss:#f5b133;--sc:#13d39a;--nm:#7e948c}
+body.light{
+--bg:#f4f7f5;--ink:#10211b;--mut:#6b8079;--line:#e3ebe7;--card:#fff;--teal:#0a7a55;
+--th:#f0f5f2;--thh:#e6efe9;--tdline:#eef3f0;--hover:#f7faf8;
+--needle:#10211b;--band:#fdf3dc;
+--sup:#066b46;--op:#0a7a55;--pre:#7a8c85;--ca:#b4322a;--lo:#066b46;--hi:#9aa6a2;--amber:#b8860b;
+--sv:#0a6b8a;--sm:#7a5cc0;--ss:#b8860b;--sc:#0a7a55;--nm:#b9c4bf}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;font-size:14px;line-height:1.45}
+.wrap{max-width:1340px;margin:0 auto;padding:22px 18px 60px}
+.topbrand{display:flex;align-items:center;gap:10px;margin:0 0 16px;font-size:13px}
+.topbrand a{color:var(--teal);text-decoration:none;font-weight:800}
+.topbrand .bd{font-weight:800;color:var(--ink)}.topbrand .bd .t{color:var(--teal)}
+h1{font-size:25px;margin:0 0 4px;letter-spacing:-.3px}
+.sub{color:var(--mut);font-size:13.5px;margin:0 0 14px;max-width:1020px}
+.sub b{color:var(--ink)}
+.bar{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:12px 0 14px}
+.glegend{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:12px}
+.glegend .lbl{font-weight:700}
+.legend{margin-left:auto;color:var(--mut);font-size:12px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.fbtn{border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer}
+.fbtn.on{background:var(--teal);color:#06231a;border-color:var(--teal)}
+.tablecard{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:1200px}
+thead th{position:sticky;top:0;background:var(--th);color:var(--mut);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;padding:10px 7px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none}
+thead th.l{text-align:left}thead th.c{text-align:center}
+thead th:hover{background:var(--thh)}
+tbody td{padding:8px 7px;text-align:right;border-bottom:1px solid var(--tdline);white-space:nowrap;font-variant-numeric:tabular-nums}
+tbody tr:hover{background:var(--hover)}
+.rk{color:var(--mut);font-weight:700;text-align:center;font-size:12px}
+.tk{font-weight:800;text-align:left;font-size:14px}
+.co{text-align:left;color:var(--mut);font-size:12px;max-width:150px;overflow:hidden;text-overflow:ellipsis}
+.seg{text-align:center;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
+.s-Value{color:var(--sv)}.s-Mid{color:var(--sm)}.s-Small{color:var(--ss)}.s-Cartera{color:var(--sc)}
+.dot{color:var(--teal);font-size:11px}
+.hoy{font-weight:800}
+.ntm{color:var(--mut)}
+.nm{color:var(--nm);font-weight:600}
+.flag{font-size:9px;color:var(--amber);font-weight:800;vertical-align:super;cursor:help}
+.rng{color:var(--mut);font-size:12px}
+.rng .lo{color:var(--lo);font-weight:800}.rng .hi{color:var(--hi)}
+.gaugecell{text-align:center;width:118px}
+.gwrap{display:flex;flex-direction:column;align-items:center;gap:0}
+.gpct{font-size:11.5px;font-weight:800;line-height:1.1}
+.glab{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
+.l-sup{color:var(--sup)}.l-op{color:var(--op)}.l-pre{color:var(--pre)}.l-ca{color:var(--ca)}
+.foot{color:var(--mut);font-size:12px;margin-top:16px;line-height:1.6}
+.spark{display:block}
+.gaugecell line{stroke:var(--needle)}.gaugecell circle{fill:var(--needle)}
+.spark path{stroke:var(--teal)}.spark rect{fill:var(--band)}.spark circle{fill:var(--teal)}
+</style></head>
+<body><script>try{if((localStorage.getItem("sp_theme")||"dark")==="light")document.body.classList.add("light")}catch(e){}</script><div class="wrap"><div class="topbrand"><a href="index.html">← Volver</a><span class="bd"><span class="t">10</span>StratPicks</span></div>
+<h1>Análisis P/E — Selecciones (Value · MidCap · SmallCap)</h1>
+<p class="sub">Historial año a año del múltiplo <b>P/E LTM</b> (precio ÷ beneficio <b>real</b> últimos 12 meses) descargado de <b>TIKR</b>, al <b>cierre de cada 31-dic</b> (para ver la burbuja 2021–2022). <b>LTM hoy</b> = múltiplo actual; <b>NTM hoy</b> = forward (estimado), solo de referencia. El <b>gauge</b> compara el LTM de hoy contra su propio <b>rango LTM de 7 años</b> (piso ↔ techo): aguja a la derecha (verde) = pegado a su <b>mínimo histórico</b> = súper oportunidad. Todo LTM real vs LTM real. <b>30 activos</b> de las selecciones Value, MidCap y SmallCap (los TrendStars quedan fuera: pre-beneficio, el P/E no aplica).</p>
+<div class="bar">
+<div class="glegend"><span class="lbl">Gauge:</span>
+<svg width="46" height="30" viewBox="0 0 46 30"><path d="M5 25 A18 18 0 0 1 14 9.41" stroke="#d9534f" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M14 9.41 A18 18 0 0 1 32 9.41" stroke="#e0a000" stroke-width="4" fill="none"/><path d="M32 9.41 A18 18 0 0 1 41 25" stroke="#0a7a55" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+<span>← Cerca del techo · Medio · Cerca del piso →</span></div>
+<span class="legend">Fuente: TIKR · al 25-jun-2026 · <b>●</b> = en cartera · ordenado por oportunidad</span>
+</div>
+<div class="filters" id="filters">
+<button class="fbtn on" data-f="all">Todos (47)</button>
+<button class="fbtn" data-f="Value">Value</button>
+<button class="fbtn" data-f="Mid">MidCap</button>
+<button class="fbtn" data-f="Small">SmallCap</button>
+</div>
+<div class="tablecard"><div class="scroll"><table id="t">
+<thead><tr>
+<th class="c" data-k="rk">#</th>
+<th class="l" data-k="tk">Ticker</th>
+<th class="l" data-k="co">Empresa</th>
+<th class="c" data-k="seg">Segm.</th>
+<th class="l" data-k="trend">Tendencia '19→hoy</th>
+<th data-k="y0">'19</th><th data-k="y1">'20</th><th data-k="y2">'21</th><th data-k="y3">'22</th><th data-k="y4">'23</th><th data-k="y5">'24</th><th data-k="y6">'25</th>
+<th data-k="ltm">LTM hoy</th><th data-k="ntm">NTM hoy</th><th data-k="rng">Piso–Techo 7a</th>
+<th class="c" data-k="opp">Oportunidad</th>
+</tr></thead>
+<tbody id="tb"></tbody>
+</table></div></div>
+<p class="foot">
+<b>n/m</b> = no significativo (BPA negativo o ≈0 → P/E se dispara; o valor &gt;300x). No entra al rango piso–techo.<br>
+<b>Cómo se mide:</b> LTM de hoy vs su <b>rango LTM de 7 años</b>. El <b>%</b> bajo el gauge = cuánto cotiza hoy <b>sobre (o bajo) su piso</b> (negativo = por debajo de su mínimo histórico). <b>Súper oport.</b> = en o bajo su piso · <b>Oportunidad</b> = tercio inferior · <b>En precio</b> = medio · <b>Cara</b> = tercio superior.<br>
+<b><span class="flag">▲</span> Ojo cargos puntuales:</b> tickers con el P/E LTM de hoy muy por encima del NTM (BPA deprimido por un cargo) — el gauge LTM puede verse <i>menos</i> barato de lo real; mirá la columna <b>NTM hoy</b>. Empresas recién rentables o cíclicas (GRND, NUTX, NAGE, ESEA, shipping/biotech) tienen historia LTM corta o saltos → leer con cuidado. <b>TSM</b> en TWD (cotización primaria). Valuación relativa a su propia historia, <b>no</b> una orden de compra.
+</p>
+</div>
+<script>
+// [ticker, empresa, segmento, enCartera, ltmHist(2019..2025), ltmHoy, ntmHoy] — datos reales TIKR (serie diaria, muestreo 31-dic)
 const RAW=[["NVDA", "NVIDIA", "Value", "", [60.23, 85.36, 90.7, 62.05, 65.24, 53.03, 46.16], 31.93, 20.767], ["APP", "AppLovin", "Value", "", [null, null, -1774.04, -46.01, 144.36, 97.89, 81.82], 22.96, 15.903], ["MSFT", "Microsoft", "Value", "", [29.75, 35.88, 37.62, 25.82, 36.44, 34.81, 34.4], 27.15, 24.67], ["TSM", "Taiwan Semiconductor M", "Value", "", [25.17, 27.5, 28.18, 13.18, 17.63, 26.53, 25.57], 27.78, 18.991], ["META", "Meta Platforms", "Value", "", [32.81, 31.12, 24.07, 11.44, 31.3, 27.65, 29.17], 21.07, 17.455], ["MA", "Mastercard", "Value", "", [44.41, 53.57, 44.2, 34.74, 37.19, 39.81, 36.5], 32.99, 28.209], ["ORCL", "Oracle", "Value", "", [16.8, 19.57, 24.62, 25.53, 29.17, 40.74, 36.59], 24.43, 17.689], ["V", "Visa", "Value", "", [35.34, 44.75, 38.49, 29.68, 31.44, 32.48, 34.38], 32.55, 26.446], ["IAG", "IAMGOLD", "Value", "", [null, null, null, null, null, null, null], 7.95, 7.078], ["AVGO", "Broadcom", "Value", "", [48.92, 69.17, 44.36, 21.08, 33.85, 179.72, 72.56], 59.71, 22.733], ["GOOGL", "Alphabet", "Value", "", [28.74, 33.87, 27.91, 17.52, 26.8, 25.1, 30.89], 17.45, 26.11], ["INTU", "Intuit", "Value", "", [null, null, null, null, null, null, null], 22.62, 13.843], ["MELI", "MercadoLibre", "Value", "", [-212.35, -10144.98, 887.48, 156.76, 80.32, 60.49, 49.17], 53.01, 46.246], ["KSPI", "Joint Stock Company Ka", "Value", "", [null, null, 31.17, 11.25, 10.67, 9.58, 7.9], 9.65, 7.691], ["UTHR", "United Therapeutics", "Value", "", [-41.81, 14.33, 21.79, 18.92, 12.11, 15.53, 18.47], 18.35, 17.786], ["NVO", "Novo Nordisk", "Value", "", [24.47, 25.08, 35.99, 44.32, 43.66, 27.17, 13.86], 11.72, 13.439], ["CPAY", "Corpay", "Value", "", [null, null, null, null, null, null, null], 25.22, 14.182], ["BX", "Blackstone", "Value", "", [24.3, 58.24, 17.92, 21.26, 55.33, 59.21, 44.3], 32.16, 22.407], ["WAT", "Waters", "Value", "", [28.75, 30.83, 33.39, 29.87, 29.93, 35.41, 34.92], 187.75, 26.63], ["ERIE", "Erie Indemnity", "Value", "", [27.18, 44.27, 32.99, 45.14, 43.73, 38.56, 23.14], 24.38, 19.885], ["HMY", "Harmony Gold Mining Co", "Value", "", [null, null, null, null, null, null, null], 14.67, 7.523], ["IBKR", "Interactive Brokers Gr", "Value", "", [22.31, 28.22, 23.38, 23.34, 15.07, 26.93, 31.03], 36.95, 31.398], ["FICO", "Fair Isaac", "Value", "", [null, null, null, null, null, null, null], 33.84, 23.079], ["LLY", "Eli Lilly and", "Value", "", [29.14, 27.62, 42.17, 55, 105.58, 83.47, 52.57], 41.86, 30.57], ["EQX", "Equinox Gold", "Value", "", [null, null, null, null, null, null, null], 23.68, 8.781], ["AG", "First Majestic Silver", "Value", "", [null, null, null, null, null, null, null], 30.0, 18.936], ["WMG", "Warner Music Group", "Value", "", [null, -40.27, 81.94, 33.13, 43.92, 37.4, 44.22], 22.01, 16.239], ["AYI", "Acuity", "Value", "", [16.65, 19.31, 25.26, 14.95, 19.04, 21.74, 28.73], 22.35, 15.838], ["ATAT", "Atour Lifestyle Holdin", "Mid", "", [null, null, null, null, 39.67, 22.47, 26.64], 16.63, 15.041], ["DLO", "DLocal", "Mid", "", [null, null, 162.92, 43.38, 39.38, 28.27, 25.25], 22.23, 14.894], ["PLMR", "Palomar Holdings", "Mid", "", [259.42, 117.85, 62.09, 23.37, 19.61, 25.01, 21.04], 17.87, 12.2], ["GNTX", "Gentex", "Mid", "", [17.46, 27.84, 20.03, 20.37, 19.18, 15.21, 13.75], 12.53, 11.234], ["VCTR", "Victory Capital Holdin", "Mid", "", [22.27, 9.37, 10.29, 6.69, 11.36, 16.25, 16.17], 21.15, 13.967], ["CVSA", "Covista", "Mid", "", [12.84, 7.07, 44.19, 31.85, 24.34, 20.86, 15.8], 17.73, 14.678], ["LAUR", "Laureate Education", "Mid", "", [-519.13, 19.92, -4.5, 76.41, 20.85, 11.38, 24.81], 16.74, 16.727], ["OMAB", "Grupo Aeroportuario de", "Mid", "", [null, null, null, null, null, null, null], 15.53, 12.2], ["FLOC", "Flowco Holdings", "Mid", "", [null, null, null, null, null, null, 13.64], 17.32, 14.457], ["CHDN", "Churchill Downs", "Mid", "", [39.12, 5675.04, 43.36, 16.97, 28.65, 24.22, 20.58], 15.44, 12.704], ["MC", "Moelis &", "Mid", "", [19.04, 35.14, 9.71, 5.96, 8.72, 127.29, 25.74], 25.65, 19.328], ["SII", "Sprott", "Mid", "", [38.27, 35.1, 39.2, 42.92, 22.43, 23.29, 50.09], 33.2, 28.944], ["DOCS", "Doximity", "Mid", "", [null, null, null, 155.2, 49.0, 25.9, 40.8], 30.03, 17.768], ["KNSL", "Kinsale Capital Group", "Mid", "", [44.5, 66.77, 38.49, 43.09, 28.66, 26.54, 19.22], 16.05, 18.708], ["TBBK", "The Bancorp", "Mid", "", [null, null, null, null, null, null, null], 12.59, 9.621], ["MNSO", "MINISO Group", "Mid", "", [null, null, null, null, null, null, null], 11.57, 7.271], ["HLNE", "Hamilton Lane", "Mid", "", [38.97, 40.29, 24.91, 17.15, 37.23, 31.99, 24.22], 16.03, 14.809], ["HLI", "Houlihan Lokey", "Mid", "", [null, null, null, null, null, null, null], 21.66, 16.893], ["OLED", "Universal Display", "Mid", "", [74.39, 103.06, 40.96, 26.98, 44.39, 29.36, 25.17], 20.44, 18.744], ["ETOR", "eToro Group", "Mid", "", [null, null, null, null, null, null, null], 10.47, 11.882], ["BZ", "Kanzhun", "Mid", "", [null, null, null, null, null, null, null], 13.08, 11.2], ["DRD", "DRDGOLD", "Mid", "", [null, null, null, null, null, null, null], 10.35, 11.33], ["CHA", "Chagee Holdings", "Mid", "", [null, null, null, null, null, null, null], 16.94, 8.848], ["ACM", "AECOM", "Mid", "", [-25.95, 46.96, 39.26, 31.11, 114.11, 28.79, 19.9], 22.82, 10.61], ["ISSC", "Innovative Aerosystems", "Small", "", [53.24, 34.32, 22.62, 25.69, 24.64, 21.35, 21.52], 19.85, 20.199], ["AFYA", "Afya", "Small", "", [10.52, 40.43, 34.35, 21.91, 28.12, 13.57, 10.26], 8.5, 7.276], ["GBFH", "GBank Financial Holdin", "Small", "", [null, null, null, null, null, 41.23, 26.11], 16.78, 10.542], ["MSB", "Mesabi Trust", "Small", "", [9.72, 19.9, 5.65, 9.18, 23.81, 4.01, 29.37], 26.95, 9.267], ["CLMB", "Climb Global Solutions", "Small", "", [11.27, 21.37, 18.62, 12.53, 20.86, 34.4, 22.21], 24.75, 16.676], ["GCMG", "GCM Grosvenor", "Small", "", [null, null, null, null, null, null, null], 26.55, 13.444], ["CBNA", "Chain Bridge Bancorp", "Small", "", [null, null, null, null, null, 5.58, 12.11], 11.27, 10.43], ["BHRB", "Burke & Herbert", "Small", "", [14.78, 19.85, 11.16, 13.43, 15.23, 32.24, 8.83], 12.09, 8.583], ["BCAL", "California BanCorp", "Small", "", [15.56, 14.4, 34.93, 27.7, 10.79, -49.55, 9.72], 11.67, 12.164], ["ASIC", "Ategrity Specialty Ins", "Small", "", [null, null, null, null, null, null, 121.15], 12.37, 11.449], ["NRIM", "Northrim BanCorp", "Small", "", [12.6, 8.09, 6.91, 10.7, 11.95, 13.3, 9.49], 8.48, 10.027], ["LOB", "Live Oak Bancshares", "Small", "", [35.91, 52.74, 23.32, 6.66, 34.51, 21.48, 23.03], 14.11, 11.479], ["BOW", "Bowhead Specialty Hold", "Small", "", [null, null, null, null, null, 32.87, 18.36], 18.24, 15.315], ["VINP", "Vinci Compass Investme", "Small", "", [null, null, null, null, null, null, null], 14.16, 9.841], ["BWFG", "Bankwell Financial Gro", "Small", "", [12.65, 17, 13.61, 6.21, 6.53, 16.03, 12.51], 12.39, 11.675], ["SHBI", "Shore Bancshares", "Small", "", [null, null, null, null, null, null, null], 11.79, 10.579], ["OPHC", "OptimumBank Holdings", "Small", "", [null, null, null, null, null, null, null], 11.05, 6.981], ["ODD", "Oddity Tech", "Small", "", [null, null, null, null, 51.08, 25.57, 22.42], 16.1, 27.816], ["TGLS", "Tecnoglass", "Small", "", [null, null, null, null, null, null, null], 14.23, 14.572], ["RGCO", "RGC Resources", "Small", "", [26.46, 18.29, 18.86, -6.34, 17.86, 17.32, 16.53], 16.37, 16.908], ["FINW", "FinWise Bancorp", "Small", "", [null, null, null, 4.2, 9.48, 15.1, 17.02], 14.42, 17.519], ["XPEL", "XPEL", "Small", "", [36.3, 84.73, 59.95, 42.3, 30.25, 22.82, 29.55], 25.55, 21.342], ["RCMT", "RCM Technologies", "Small", "", [10.42, -4.12, 23.96, 6.05, 16.02, 11.35, 11.97], 17.89, 13.329]];
 
 const ok=v=>v!=null&&v>0&&v<=300;
